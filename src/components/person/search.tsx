@@ -1,13 +1,13 @@
 import React from 'react'
+
+import Input from '../inputs/input'
+import theme from '../../styles/theme'
 import { BsSearch } from 'react-icons/bs'
+import { usePerson } from '../../hooks/personContext'
 import { InputGroup, InputLeftElement } from '@chakra-ui/core'
 
-import theme from '../../styles/theme'
-import Input from '../../components/inputs/input'
-import { useClients } from '../../hooks/clientContext'
-
 const Search: React.FC = () => {
-  const { search, setSearch } = useClients()
+  const { search, setSearch } = usePerson()
 
   return (
     <InputGroup width="50%" marginLeft="30px">

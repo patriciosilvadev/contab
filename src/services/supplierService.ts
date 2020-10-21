@@ -4,19 +4,19 @@ import Server from './_server'
 
 const api = Server.api
 
-class ClientService {
+class SupplierService {
   /**
    * Function to validate user data and return a validate form
    *
-   * @param client entity to valudate
+   * @param supplier entity to valudate
    */
-  public isValidatedForm(client: Person) {
+  public isValidatedForm(supplier: Person) {
     const newValidation: PersonValidation = {} as PersonValidation
 
-    newValidation.nameIsValid = !!client?.name?.trim()
+    newValidation.nameIsValid = !!supplier?.name?.trim()
     newValidation.inscEstadualIsValid =
-      client.indInscEstadual === constants.IND_INSCR_SOCIAL_Y
-        ? !!client?.inscEstadual?.trim()
+      supplier.indInscEstadual === constants.IND_INSCR_SOCIAL_Y
+        ? !!supplier?.inscEstadual?.trim()
         : true
 
     return {
@@ -26,11 +26,11 @@ class ClientService {
   }
 
   /**
-   * Function to find all clients
+   * Function to find all suppliers
    */
   public async findAll(): Promise<any> {
     const { data: list, status } = await api
-      .get('clients', { headers: Server.authHeader() })
+      .get('suppliers', { headers: Server.authHeader() })
       .catch(error => {
         return error.response
       })
@@ -39,13 +39,13 @@ class ClientService {
   }
 
   /**
-   * Function to create a new client
+   * Function to create a new supplier
    *
-   * @param payload client inforamtion
+   * @param payload supplier inforamtion
    */
   public async create(payload: Person): Promise<any> {
     const { data, status } = await api
-      .post('clients', payload, { headers: Server.authHeader() })
+      .post('suppliers', payload, { headers: Server.authHeader() })
       .catch(error => {
         return error.response
       })
@@ -54,13 +54,13 @@ class ClientService {
   }
 
   /**
-   * Function to edit a client
+   * Function to edit a supplier
    *
-   * @param payload client inforamtion
+   * @param payload supplier inforamtion
    */
   public async update(payload: Person): Promise<any> {
     const { data, status } = await api
-      .put('clients', payload, { headers: Server.authHeader() })
+      .put('suppliers', payload, { headers: Server.authHeader() })
       .catch(error => {
         return error.response
       })
@@ -71,12 +71,12 @@ class ClientService {
   /**
    * Function to toggle active flag
    *
-   * @param payload client inforamtion
+   * @param payload supplier inforamtion
    */
   public async toggleActive(payload: Person): Promise<any> {
     const { data, status } = await api
       .put(
-        'clients/toggleActive',
+        'suppliers/toggleActive',
         { id: payload.id },
         { headers: Server.authHeader() }
       )
@@ -88,4 +88,4 @@ class ClientService {
   }
 }
 
-export default new ClientService()
+export default new SupplierService()

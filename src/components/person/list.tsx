@@ -1,110 +1,111 @@
 import React, { useEffect, useState } from 'react'
 
-import { useClients } from '../../hooks/clientContext'
+import { usePerson } from '../../hooks/personContext'
 import { Checkbox, Flex, Text } from '@chakra-ui/core'
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti'
-import { Client, ListHeader } from '../../config/interfaces/clients'
+import { Person, ListHeader } from '../../config/interfaces/person'
 
 import Link from '../inputs/link'
 import Pagination from '../pagination'
 import theme from '../../styles/theme'
-import ClientListItem from './listItem'
+import PersonListItem from './listItem'
 import ButtonOut from '../inputs/buttonOut'
 import constants from '../../config/constants'
-import clientService from '../../services/clientService'
 
-const ClientList: React.FC = () => {
+const PersonList: React.FC = () => {
   const padding = 10
   const itemsPerPage = 10
   const {
-    clients,
+    type,
+    service,
+    persons,
     filter,
     order,
     search,
     setPage,
     setOrder,
     updateList
-  } = useClients()
+  } = usePerson()
 
   const [pageCount, setPageCount] = useState<number>()
   const [orderAsc, setOrderAsc] = useState<boolean>(true)
   const [numberOfSelected, setNumberOfSelected] = useState<number>(0)
-  const [filteredClients, setFilteredClients] = useState<Client[]>([])
+  const [filteredPerson, setFilteredPerson] = useState<Person[]>([])
 
-  const hasItemToShow = filteredClients.length > 0
+  const hasItemToShow = filteredPerson.length > 0
 
   useEffect(() => {
     applyFilters()
-    setPageCount(Math.ceil(filteredClients.length / itemsPerPage))
-  }, [clients, filter, order, search, orderAsc])
+    setPageCount(Math.ceil(filteredPerson.length / itemsPerPage))
+  }, [persons, filter, order, search, orderAsc])
 
   /**
    * Actions
    */
 
   const applyFilters = () => {
-    const verifySearch = (client: Client) => {
+    const verifySearch = (person: Person) => {
       const commonSearch = search.toLowerCase()
       const verifyPropertie = value => {
         return value ? value.toLowerCase().includes(commonSearch) : false
       }
 
       return (
-        verifyPropertie(client.name) ||
-        verifyPropertie(client.email) ||
-        verifyPropertie(client.cpf) ||
-        verifyPropertie(client.cnpj) ||
-        verifyPropertie(client.phone) ||
-        verifyPropertie(client.celphone)
+        verifyPropertie(person.name) ||
+        verifyPropertie(person.email) ||
+        verifyPropertie(person.cpf) ||
+        verifyPropertie(person.cnpj) ||
+        verifyPropertie(person.phone) ||
+        verifyPropertie(person.celphone)
       )
     }
 
-    const verifyFilter = (client: Client) => {
+    const verifyFilter = (person: Person) => {
       switch (filter) {
-        case constants.FILTER_CLIENTS_ACTIVE:
-          return client.active
-        case constants.FILTER_CLIENTS_INACTIVE:
-          return !client.active
+        case constants.FILTER_PERSON_ACTIVE:
+          return person.active
+        case constants.FILTER_PERSON_INACTIVE:
+          return !person.active
         default:
           return true
       }
     }
 
-    const filteredList = clients
-      .filter(client => {
-        client.selected = false
-        return verifyFilter(client) && verifySearch(client)
+    const filteredList = persons
+      .filter(person => {
+        person.selected = false
+        return verifyFilter(person) && verifySearch(person)
       })
-      .sort((firstClient, secondClient) => {
+      .sort((firstPerson, secondPerson) => {
         const asc = orderAsc ? 1 : -1
         const desc = orderAsc ? -1 : 1
-        return firstClient[order] > secondClient[order] ? asc : desc
+        return firstPerson[order] > secondPerson[order] ? asc : desc
       })
 
     setNumberOfSelected(0)
-    setFilteredClients(filteredList)
+    setFilteredPerson(filteredList)
   }
 
-  const toggleAllClients = checkBox => {
+  const toggleAllPerson = checkBox => {
     const checked = checkBox.checked
     const indeterminate = checkBox.indeterminate
     const status = indeterminate ? true : checked
 
     let countSelected = 0
-    const selectedClients = filteredClients.map(client => {
-      client.selected = status
+    const selectedPerson = filteredPerson.map(person => {
+      person.selected = status
       countSelected += status ? 1 : 0
-      return client
+      return person
     })
 
-    setFilteredClients(selectedClients)
+    setFilteredPerson(selectedPerson)
     setNumberOfSelected(countSelected)
   }
 
   const batchToggleActive = async () => {
-    await filteredClients.forEach(async client => {
-      if (client.selected) {
-        await clientService.toggleActive(client)
+    await filteredPerson.forEach(async person => {
+      if (person.selected) {
+        await service.toggleActive(person)
       }
     })
 
@@ -155,7 +156,8 @@ const ClientList: React.FC = () => {
   return (
     <>
       <Text marginBottom="10px" fontSize={12} color="gray.600">
-        <b>{numberOfSelected}</b> clientes selecionado(s)
+        <b>{numberOfSelected}</b> {type.toLowerCase()}(
+        {type === constants.PERSON_TYPE_SUPPLIER ? 'es' : 's'}) selecionado(s)
         <ButtonOut
           fontSize={12}
           height="20px"
@@ -193,10 +195,10 @@ const ClientList: React.FC = () => {
                     borderRadius={5}
                     isIndeterminate={
                       numberOfSelected > 0 &&
-                      !(numberOfSelected === filteredClients.length)
+                      !(numberOfSelected === filteredPerson.length)
                     }
-                    isChecked={numberOfSelected === filteredClients.length}
-                    onChange={e => toggleAllClients(e.target)}
+                    isChecked={numberOfSelected === filteredPerson.length}
+                    onChange={e => toggleAllPerson(e.target)}
                   />
                 )}
               </TH>
@@ -210,14 +212,14 @@ const ClientList: React.FC = () => {
           </thead>
           <tbody>
             {hasItemToShow &&
-              filteredClients.map((client, key) => (
-                <ClientListItem
+              filteredPerson.map((person, key) => (
+                <PersonListItem
                   key={key}
-                  client={client}
+                  person={person}
                   numberOfSelected={numberOfSelected}
                   setNumberOfSelected={setNumberOfSelected}
-                  filteredClients={filteredClients}
-                  setFilteredClients={setFilteredClients}
+                  filteredPerson={filteredPerson}
+                  setFilteredPerson={setFilteredPerson}
                 />
               ))}
             {!hasItemToShow && (
@@ -226,7 +228,7 @@ const ClientList: React.FC = () => {
                   colSpan={7}
                   style={{ textAlign: 'center', padding: '20px' }}
                 >
-                  Nenhum cliente foi encontrado
+                  Nenhum {type.toLowerCase()} foi encontrado
                 </td>
               </tr>
             )}
@@ -241,4 +243,4 @@ const ClientList: React.FC = () => {
   )
 }
 
-export default ClientList
+export default PersonList

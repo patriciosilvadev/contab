@@ -1,23 +1,22 @@
-/**
- * Address
- */
-export interface Address {
-  address?: string
-  number?: string
-  complement?: string
-  district?: string
-  city?: string
-  state?: string
-  cep?: string
-}
+import { Address } from '.'
+import ClientService from '../../services/clientService'
+import SupplierService from '../../services/supplierService'
 
 /**
- * Client
+ * Person
  */
-export interface ClientsContextProps {
-  clients: Client[]
-  editClient: Client
-  setEditClient(client: Client): void
+
+export interface PersonIndexProps {
+  type: string
+  service: typeof ClientService | typeof SupplierService
+}
+
+export interface PersonContextProps {
+  type: string
+  service: typeof ClientService | typeof SupplierService
+  persons: Person[]
+  editPerson: Person
+  setEditPerson(person: Person): void
   loading: boolean
   search: string
   setSearch(search: string): void
@@ -33,13 +32,15 @@ export interface ClientsContextProps {
   updateList(): void
 }
 
-export interface ClientsProviderProps {
+export interface PersonProviderProps {
+  type: string
+  service: typeof ClientService | typeof SupplierService
   onNewClose(): void
   onEditOpen(): void
   onEditClose(): void
 }
 
-export interface Client {
+export interface Person {
   id?: number
   name: string
   type: string
@@ -62,7 +63,7 @@ export interface Client {
   selected?: boolean
 }
 
-export interface ClientValidation {
+export interface PersonValidation {
   nameIsValid: boolean
   typeIsValid?: boolean
   activeIsValid?: boolean
@@ -84,9 +85,9 @@ export interface ClientValidation {
 }
 
 /**
- * Client List
+ * Person List
  */
-export interface ClientListItem {
+export interface PersonListItem {
   selected: boolean
   name: string
   cpf?: string
@@ -101,15 +102,15 @@ export interface ListHeader {
   order?: string
 }
 
-export interface ClientRowProps {
-  client: Client
+export interface PersonRowProps {
+  person: Person
   numberOfSelected: number
   setNumberOfSelected(numberOfSelected: number): void
-  filteredClients: Client[]
-  setFilteredClients(filteredClients: Client[]): void
+  filteredPerson: Person[]
+  setFilteredPerson(filteredPerson: Person[]): void
 }
 
-export interface ClientItemActionProps {
+export interface PersonItemActionProps {
   tooltip: string
   icon: any
   action: () => void

@@ -1,7 +1,7 @@
 import { Stripe } from '@stripe/stripe-js'
 import { AppProps } from 'next/app'
 import { Dispatch } from 'react'
-import { Plan } from '../components/subscription/setPlan'
+import { Plan } from '../../components/subscription/setPlan'
 
 export interface User {
   name: string
@@ -91,4 +91,17 @@ export interface BankAccountElement {
     description: string
     valor: string
   }
+}
+
+/**
+ * Address
+ */
+export interface Address {
+  address?: string
+  number?: string
+  complement?: string
+  district?: string
+  city?: string
+  state?: string
+  cep?: string
 }

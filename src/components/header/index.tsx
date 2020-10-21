@@ -47,7 +47,7 @@ const menuItems = [
       {
         name: 'Cadastros',
         options: [
-          { label: 'Fornecedores', link: 'providers' },
+          { label: 'Fornecedores', link: 'suppliers' },
           { label: 'Produto', link: 'products' },
           { label: 'Serviço', link: 'services' },
           { label: 'Estoque', link: 'stock' }

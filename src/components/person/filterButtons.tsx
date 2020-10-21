@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Flex, PseudoBox, Text } from '@chakra-ui/core'
+
 import theme from '../../styles/theme'
-import { useClients } from '../../hooks/clientContext'
 import constants from '../../config/constants'
+import { usePerson } from '../../hooks/personContext'
+import { Flex, PseudoBox, Text } from '@chakra-ui/core'
 
 interface ButtonBoxProps {
   title: string
@@ -12,17 +13,21 @@ interface ButtonBoxProps {
   onClick(): void
 }
 
-const FilterButton: React.FC = () => {
-  const { clients, filter, setFilter } = useClients()
+interface FilterButtonProps {
+  name: string
+}
+
+const FilterButton: React.FC<FilterButtonProps> = ({ name }) => {
+  const { persons, filter, setFilter } = usePerson()
   const [countOfActive, setCountOfActive] = useState<number>(0)
 
   useEffect(() => {
-    const count = clients.filter(client => {
-      return client.active
+    const count = persons.filter(person => {
+      return person.active
     }).length
 
     setCountOfActive(count)
-  }, [clients])
+  }, [persons])
 
   const ButtonBox: React.FC<ButtonBoxProps> = props => {
     const { title, value, color, active, onClick } = props
@@ -58,25 +63,25 @@ const FilterButton: React.FC = () => {
       overflow="hidden"
     >
       <ButtonBox
-        title="Todos clientes"
-        value={clients.length}
+        title={`Todos ${name.toLowerCase()}`}
+        value={persons.length}
         color="blue.300"
-        active={filter === constants.FILTER_CLIENTS_ALL}
-        onClick={() => setFilter(constants.FILTER_CLIENTS_ALL)}
+        active={filter === constants.FILTER_PERSON_ALL}
+        onClick={() => setFilter(constants.FILTER_PERSON_ALL)}
       />
       <ButtonBox
         title="Ativos"
         value={countOfActive}
         color="green.300"
-        active={filter === constants.FILTER_CLIENTS_ACTIVE}
-        onClick={() => setFilter(constants.FILTER_CLIENTS_ACTIVE)}
+        active={filter === constants.FILTER_PERSON_ACTIVE}
+        onClick={() => setFilter(constants.FILTER_PERSON_ACTIVE)}
       />
       <ButtonBox
         title="Inativos"
-        value={clients.length - countOfActive}
+        value={persons.length - countOfActive}
         color="yellow.300"
-        active={filter === constants.FILTER_CLIENTS_INACTIVE}
-        onClick={() => setFilter(constants.FILTER_CLIENTS_INACTIVE)}
+        active={filter === constants.FILTER_PERSON_INACTIVE}
+        onClick={() => setFilter(constants.FILTER_PERSON_INACTIVE)}
       />
     </Flex>
   )

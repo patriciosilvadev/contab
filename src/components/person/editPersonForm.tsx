@@ -9,27 +9,30 @@ import constants from '../../config/constants'
 import CustomMenuButton from '../inputs/menuButton'
 
 import { BsSearch } from 'react-icons/bs'
-import { useClients } from '../../hooks/clientContext'
+import { Address } from '../../config/interfaces'
+import { usePerson } from '../../hooks/personContext'
+import { PersonValidation } from '../../config/interfaces/person'
 import { Box, InputGroup, InputRightAddon, Stack } from '@chakra-ui/core'
-import { Address, ClientValidation } from '../../config/interfaces/clients'
 
 interface CreateAccountForm {
   loading: boolean
-  validation: ClientValidation
+  validation: PersonValidation
 }
 
 const CreateAccountForm: React.FC<CreateAccountForm> = props => {
   const { loading, validation } = props
-  const { editClient, setEditClient } = useClients()
+  const { editPerson, setEditPerson } = usePerson()
 
   const typeActions = [
     {
       value: 'Física',
-      handle: () => setEditClient({ ...editClient, type: 'PF' })
+      handle: () =>
+        setEditPerson({ ...editPerson, type: 'PF', cpf: '', cnpj: '' })
     },
     {
       value: 'Jurídica',
-      handle: () => setEditClient({ ...editClient, type: 'PJ' })
+      handle: () =>
+        setEditPerson({ ...editPerson, type: 'PJ', cpf: '', cnpj: '' })
     }
   ]
 
@@ -37,36 +40,36 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
     {
       value: constants.IND_INSCR_SOCIAL_Y_LABEL,
       handle: () =>
-        setEditClient({
-          ...editClient,
+        setEditPerson({
+          ...editPerson,
           indInscEstadual: constants.IND_INSCR_SOCIAL_Y
         })
     },
     {
       value: constants.IND_INSCR_SOCIAL_N_LABEL,
       handle: () =>
-        setEditClient({
-          ...editClient,
+        setEditPerson({
+          ...editPerson,
           indInscEstadual: constants.IND_INSCR_SOCIAL_N
         })
     },
     {
       value: constants.IND_INSCR_SOCIAL_I_LABEL,
       handle: () =>
-        setEditClient({
-          ...editClient,
+        setEditPerson({
+          ...editPerson,
           indInscEstadual: constants.IND_INSCR_SOCIAL_I
         })
     }
   ]
 
   const loadAddressByCep = async () => {
-    if (editClient.addresses) {
+    if (editPerson.addresses) {
       const addressList = []
       let address: Address = {}
 
-      if (editClient.addresses) {
-        address = { ...editClient.addresses[0] }
+      if (editPerson.addresses) {
+        address = { ...editPerson.addresses[0] }
       }
 
       if (address.cep && address.cep.length >= 8) {
@@ -78,7 +81,7 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
         address.district = data.neighborhood
 
         addressList.push(address)
-        setEditClient({ ...editClient, addresses: addressList })
+        setEditPerson({ ...editPerson, addresses: addressList })
       }
     }
   }
@@ -95,13 +98,13 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
       complement: ''
     }
 
-    if (editClient.addresses) {
-      addresses = { ...editClient.addresses[0] }
+    if (editPerson.addresses) {
+      addresses = { ...editPerson.addresses[0] }
     }
 
     addresses[prop] = value
     addressList.push(addresses)
-    setEditClient({ ...editClient, addresses: addressList })
+    setEditPerson({ ...editPerson, addresses: addressList })
   }
 
   const BasicForm = (
@@ -116,31 +119,31 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
           options={typeActions}
           borderColor="gray.300"
         >
-          {editClient.type ? constants[editClient.type] : 'Tipo de pessoa'}
+          {editPerson.type ? constants[editPerson.type] : 'Tipo de pessoa'}
         </CustomMenuButton>
 
-        {editClient.type === 'PJ' && (
+        {editPerson.type === 'PJ' && (
           <Input
             flex="2"
             type="text"
             label="CNPJ"
             isDisabled={loading}
-            value={editClient.cnpj || ''}
+            value={editPerson.cnpj || ''}
             onChange={e =>
-              setEditClient({ ...editClient, cnpj: e.target.value })
+              setEditPerson({ ...editPerson, cnpj: e.target.value })
             }
           />
         )}
 
-        {editClient.type === 'PF' && (
+        {editPerson.type === 'PF' && (
           <Input
             flex="2"
             label="CPF"
             type="text"
             isDisabled={loading}
-            value={editClient.cpf || ''}
+            value={editPerson.cpf || ''}
             onChange={e =>
-              setEditClient({ ...editClient, cpf: e.target.value })
+              setEditPerson({ ...editPerson, cpf: e.target.value })
             }
           />
         )}
@@ -151,10 +154,10 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
           label="Nome"
           isRequired={true}
           isDisabled={loading}
-          value={editClient.name || ''}
+          value={editPerson.name || ''}
           isInvalid={!validation.nameIsValid}
-          invalidMessage="Você não informou o nome do cliente"
-          onChange={e => setEditClient({ ...editClient, name: e.target.value })}
+          invalidMessage="Campo obrigatório"
+          onChange={e => setEditPerson({ ...editPerson, name: e.target.value })}
         />
       </Stack>
     </SectionForm>
@@ -168,9 +171,9 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
           type="email"
           label="Email"
           isDisabled={loading}
-          value={editClient.email || ''}
+          value={editPerson.email || ''}
           onChange={e =>
-            setEditClient({ ...editClient, email: e.target.value })
+            setEditPerson({ ...editPerson, email: e.target.value })
           }
         />
 
@@ -179,9 +182,9 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
           type="text"
           label="Telefone"
           isDisabled={loading}
-          value={editClient.phone || ''}
+          value={editPerson.phone || ''}
           onChange={e =>
-            setEditClient({ ...editClient, phone: e.target.value })
+            setEditPerson({ ...editPerson, phone: e.target.value })
           }
         />
         <Input
@@ -189,9 +192,9 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
           type="text"
           label="Celular"
           isDisabled={loading}
-          value={editClient.celphone || ''}
+          value={editPerson.celphone || ''}
           onChange={e =>
-            setEditClient({ ...editClient, celphone: e.target.value })
+            setEditPerson({ ...editPerson, celphone: e.target.value })
           }
         />
       </Stack>
@@ -202,31 +205,31 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
           type="date"
           isDisabled={loading}
           label={
-            editClient.type === constants.PF_TYPE
+            editPerson.type === constants.PF_TYPE
               ? 'Data de Nascimento'
               : 'Abertura da Empresa'
           }
-          value={editClient.birthday || new Date()}
+          value={editPerson.birthday || new Date()}
           onChange={e =>
-            setEditClient({ ...editClient, birthday: e.target.value })
+            setEditPerson({ ...editPerson, birthday: e.target.value })
           }
         />
-        {editClient.type === constants.PF_TYPE && (
+        {editPerson.type === constants.PF_TYPE && (
           <>
             <Input
               flex="1"
               label="RG"
               type="text"
               isDisabled={loading}
-              value={editClient.rg || ''}
+              value={editPerson.rg || ''}
               onChange={e =>
-                setEditClient({ ...editClient, rg: e.target.value })
+                setEditPerson({ ...editPerson, rg: e.target.value })
               }
             />
             <Box flex="1" />
           </>
         )}
-        {editClient.type === constants.PJ_TYPE && (
+        {editPerson.type === constants.PJ_TYPE && (
           <>
             <Box flex="1" />
             <Box flex="1" />
@@ -239,7 +242,7 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
 
   const FiscalForm = (
     <SectionForm title="Informações fiscais">
-      {editClient.type === constants.PJ_TYPE && (
+      {editPerson.type === constants.PJ_TYPE && (
         <>
           <Stack isInline spacing={4} marginBottom={4}>
             <Input
@@ -247,9 +250,9 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
               type="string"
               label="Razão Social"
               isDisabled={loading}
-              value={editClient.razaoSocial || ''}
+              value={editPerson.razaoSocial || ''}
               onChange={e =>
-                setEditClient({ ...editClient, razaoSocial: e.target.value })
+                setEditPerson({ ...editPerson, razaoSocial: e.target.value })
               }
             />
             <Radio
@@ -260,12 +263,12 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
                 { key: 'N', value: 'Não' }
               ]}
               onChange={e =>
-                setEditClient({
-                  ...editClient,
+                setEditPerson({
+                  ...editPerson,
                   simples: e.target.value === 'Y'
                 })
               }
-              value={editClient.simples ? 'Y' : 'N'}
+              value={editPerson.simples ? 'Y' : 'N'}
             />
             <CustomMenuButton
               flex="1"
@@ -277,9 +280,9 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
               options={indInscrSocial}
               label="Indicação de Inscrição Social"
             >
-              {editClient.indInscEstadual
+              {editPerson.indInscEstadual
                 ? constants[
-                    `IND_INSCR_SOCIAL_${editClient.indInscEstadual}_LABEL`
+                    `IND_INSCR_SOCIAL_${editPerson.indInscEstadual}_LABEL`
                     // eslint-disable-next-line prettier/prettier
                 ]
                 : 'Selecionar'}
@@ -290,18 +293,18 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
               flex="1"
               type="string"
               label="Inscrição Estadual"
-              value={editClient.inscEstadual || ''}
+              value={editPerson.inscEstadual || ''}
               isInvalid={!validation.inscEstadualIsValid}
               invalidMessage="Campo obrigatório para contribuintes"
               isRequired={
-                editClient.indInscEstadual === constants.IND_INSCR_SOCIAL_Y
+                editPerson.indInscEstadual === constants.IND_INSCR_SOCIAL_Y
               }
               isDisabled={
                 loading ||
-                editClient.indInscEstadual === constants.IND_INSCR_SOCIAL_I
+                editPerson.indInscEstadual === constants.IND_INSCR_SOCIAL_I
               }
               onChange={e =>
-                setEditClient({ ...editClient, inscEstadual: e.target.value })
+                setEditPerson({ ...editPerson, inscEstadual: e.target.value })
               }
             />
             <Input
@@ -309,9 +312,9 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
               type="string"
               isDisabled={loading}
               label="Inscrição Municipal"
-              value={editClient.inscMunicipal || ''}
+              value={editPerson.inscMunicipal || ''}
               onChange={e =>
-                setEditClient({ ...editClient, inscMunicipal: e.target.value })
+                setEditPerson({ ...editPerson, inscMunicipal: e.target.value })
               }
             />
             <Input
@@ -319,15 +322,15 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
               type="string"
               isDisabled={loading}
               label="Inscrição Suframa"
-              value={editClient.inscSuframa || ''}
+              value={editPerson.inscSuframa || ''}
               onChange={e =>
-                setEditClient({ ...editClient, inscSuframa: e.target.value })
+                setEditPerson({ ...editPerson, inscSuframa: e.target.value })
               }
             />
           </Stack>
         </>
       )}
-      {editClient.type === constants.PF_TYPE && (
+      {editPerson.type === constants.PF_TYPE && (
         <Stack isInline spacing={4}>
           <CustomMenuButton
             flex="1"
@@ -339,9 +342,9 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
             options={indInscrSocial}
             label="Indicação de Inscrição Social"
           >
-            {editClient.indInscEstadual
+            {editPerson.indInscEstadual
               ? constants[
-                  `IND_INSCR_SOCIAL_${editClient.indInscEstadual}_LABEL`
+                  `IND_INSCR_SOCIAL_${editPerson.indInscEstadual}_LABEL`
                   // eslint-disable-next-line prettier/prettier
               ]
               : 'Selecionar'}
@@ -350,18 +353,18 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
             flex="1"
             type="string"
             label="Inscrição Estadual"
-            value={editClient.inscEstadual || ''}
+            value={editPerson.inscEstadual || ''}
             isInvalid={!validation.inscEstadualIsValid}
             invalidMessage="Campo obrigatório para contribuintes"
             isRequired={
-              editClient.indInscEstadual === constants.IND_INSCR_SOCIAL_Y
+              editPerson.indInscEstadual === constants.IND_INSCR_SOCIAL_Y
             }
             isDisabled={
               loading ||
-              editClient.indInscEstadual === constants.IND_INSCR_SOCIAL_I
+              editPerson.indInscEstadual === constants.IND_INSCR_SOCIAL_I
             }
             onChange={e =>
-              setEditClient({ ...editClient, inscEstadual: e.target.value })
+              setEditPerson({ ...editPerson, inscEstadual: e.target.value })
             }
           />
           <Box flex="1" />
@@ -383,7 +386,7 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
             borderBottomRightRadius={0}
             onChange={e => setAddressProp('cep', e.target.value)}
             value={
-              editClient.addresses.length > 0 ? editClient.addresses[0].cep : ''
+              editPerson.addresses.length > 0 ? editPerson.addresses[0].cep : ''
             }
           />
           <InputRightAddon
@@ -402,8 +405,8 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
           isDisabled={loading}
           onChange={e => setAddressProp('address', e.target.value)}
           value={
-            editClient.addresses.length > 0
-              ? editClient.addresses[0].address
+            editPerson.addresses.length > 0
+              ? editPerson.addresses[0].address
               : ''
           }
         />
@@ -414,8 +417,8 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
           isDisabled={loading}
           onChange={e => setAddressProp('number', e.target.value)}
           value={
-            editClient.addresses.length > 0
-              ? editClient.addresses[0].number
+            editPerson.addresses.length > 0
+              ? editPerson.addresses[0].number
               : ''
           }
         />
@@ -428,7 +431,7 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
           isDisabled={loading}
           onChange={e => setAddressProp('state', e.target.value)}
           value={
-            editClient.addresses.length > 0 ? editClient.addresses[0].state : ''
+            editPerson.addresses.length > 0 ? editPerson.addresses[0].state : ''
           }
         />
         <Input
@@ -438,7 +441,7 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
           isDisabled={loading}
           onChange={e => setAddressProp('city', e.target.value)}
           value={
-            editClient.addresses.length > 0 ? editClient.addresses[0].city : ''
+            editPerson.addresses.length > 0 ? editPerson.addresses[0].city : ''
           }
         />
         <Input
@@ -448,8 +451,8 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
           isDisabled={loading}
           onChange={e => setAddressProp('district', e.target.value)}
           value={
-            editClient.addresses.length > 0
-              ? editClient.addresses[0].district
+            editPerson.addresses.length > 0
+              ? editPerson.addresses[0].district
               : ''
           }
         />
@@ -460,8 +463,8 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
           isDisabled={loading}
           onChange={e => setAddressProp('complement', e.target.value)}
           value={
-            editClient.addresses.length > 0
-              ? editClient.addresses[0].complement
+            editPerson.addresses.length > 0
+              ? editPerson.addresses[0].complement
               : ''
           }
         />
@@ -473,9 +476,9 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
     <SectionForm title="Observações gerais">
       <TextArea
         flex="1"
-        value={editClient.obs || ''}
-        placeholder="Para mais informações sobre seu cliente..."
-        onChange={e => setEditClient({ ...editClient, obs: e.target.value })}
+        value={editPerson.obs || ''}
+        placeholder="Forneça mais detalhes"
+        onChange={e => setEditPerson({ ...editPerson, obs: e.target.value })}
       />
     </SectionForm>
   )

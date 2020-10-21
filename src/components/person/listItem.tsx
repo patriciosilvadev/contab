@@ -1,56 +1,55 @@
 import React from 'react'
 
-import { useClients } from '../../hooks/clientContext'
+import { usePerson } from '../../hooks/personContext'
 import { Badge, Checkbox, useToast } from '@chakra-ui/core'
-import { Client, ClientRowProps } from '../../config/interfaces/clients'
+import { Person, PersonRowProps } from '../../config/interfaces/person'
 
 import CustomMenuButton from '../inputs/menuButton'
-import clientService from '../../services/clientService'
 
-const ClientListItem: React.FC<ClientRowProps> = props => {
+const PersonListItem: React.FC<PersonRowProps> = props => {
   const padding = 10
   const toast = useToast()
   const {
-    client,
+    person,
     numberOfSelected,
     setNumberOfSelected,
-    filteredClients,
-    setFilteredClients
+    filteredPerson,
+    setFilteredPerson
   } = props
-  const { setEditClient, onEditOpen, updateList } = useClients()
+  const { type, service, setEditPerson, onEditOpen, updateList } = usePerson()
 
   /**
    * Actions
    */
 
-  const setSelected = (client: Client, selected: boolean) => {
+  const setSelected = (person: Person, selected: boolean) => {
     let countSelected = numberOfSelected
-    const updatedClients = filteredClients.map(clientFound => {
-      if (clientFound.name === client.name) {
-        clientFound.selected = selected
+    const updatedPerson = filteredPerson.map(personFound => {
+      if (personFound.name === person.name) {
+        personFound.selected = selected
         countSelected += selected ? 1 : -1
       }
 
-      return clientFound
+      return personFound
     })
 
-    setFilteredClients(updatedClients)
+    setFilteredPerson(updatedPerson)
     setNumberOfSelected(countSelected)
   }
 
   const edit = () => {
-    setEditClient(client)
+    setEditPerson(person)
     onEditOpen()
   }
 
   const toggleActive = async () => {
-    const { status } = await clientService.toggleActive(client)
+    const { status } = await service.toggleActive(person)
 
     if (status === 200) {
       updateList()
     } else {
       toast({
-        title: `${client.active ? 'Inativar' : 'Ativar'} cliente`,
+        title: `${person.active ? 'Inativar' : 'Ativar'} ${type}`,
         description:
           'Ocorreu algum erro ao executar esta opção. Por favor, tente novamente.',
         status: 'error',
@@ -67,7 +66,7 @@ const ClientListItem: React.FC<ClientRowProps> = props => {
         handle: () => edit()
       },
       {
-        value: client.active ? 'Inativar' : 'Ativar',
+        value: person.active ? 'Inativar' : 'Ativar',
         handle: () => toggleActive()
       }
     ]
@@ -88,17 +87,17 @@ const ClientListItem: React.FC<ClientRowProps> = props => {
       <TD>
         <Checkbox
           size="lg"
-          isChecked={client.selected}
-          onChange={e => setSelected(client, e.target.checked)}
+          isChecked={person.selected}
+          onChange={e => setSelected(person, e.target.checked)}
         />
       </TD>
-      <TD>{client.name}</TD>
-      <TD>{client.cpf || client.cnpj || '-'}</TD>
-      <TD>{client.email || '-'}</TD>
-      <TD>{client.phone || client.celphone || '-'}</TD>
+      <TD>{person.name}</TD>
+      <TD>{person.cpf || person.cnpj || '-'}</TD>
+      <TD>{person.email || '-'}</TD>
+      <TD>{person.phone || person.celphone || '-'}</TD>
       <TD>
-        <Badge variantColor={client.active ? 'green' : 'yellow'}>
-          {client.active ? 'Ativo' : 'Inativo'}
+        <Badge variantColor={person.active ? 'green' : 'yellow'}>
+          {person.active ? 'Ativo' : 'Inativo'}
         </Badge>
       </TD>
       <TD width="100px">
@@ -116,4 +115,4 @@ const ClientListItem: React.FC<ClientRowProps> = props => {
   )
 }
 
-export default ClientListItem
+export default PersonListItem
