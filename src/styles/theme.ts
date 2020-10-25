@@ -29,6 +29,7 @@ const customTheme: DefaultTheme = {
     },
     gray: {
       ...theme.colors.gray,
+      50: 'rgb(250, 250, 250)',
       100: '#f1f1f1',
       300: '#e1e1e1',
       600: '#535353',

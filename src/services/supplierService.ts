@@ -1,4 +1,5 @@
 import constants from '../config/constants'
+import { FindAllProps } from '../config/interfaces/list'
 import { Person, PersonValidation } from '../config/interfaces/person'
 import Server from './_server'
 
@@ -28,14 +29,14 @@ class SupplierService {
   /**
    * Function to find all suppliers
    */
-  public async findAll(): Promise<any> {
-    const { data: list, status } = await api
-      .get('suppliers', { headers: Server.authHeader() })
+  public async findAll(params: FindAllProps): Promise<any> {
+    const { data, status } = await api
+      .get('suppliers', { headers: Server.authHeader(), params })
       .catch(error => {
         return error.response
       })
 
-    return { list, status }
+    return { data, status }
   }
 
   /**

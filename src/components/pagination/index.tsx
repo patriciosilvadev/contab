@@ -1,6 +1,6 @@
-import { Flex } from '@chakra-ui/core'
 import React from 'react'
 import ReactPaginate from 'react-paginate'
+import { PaginationContent } from './styles'
 
 interface PaginationProps {
   pageCount: number
@@ -11,10 +11,10 @@ const Pagination: React.FC<PaginationProps> = props => {
   const { pageCount, setPage } = props
 
   return (
-    <Flex direction="row">
+    <PaginationContent>
       <ReactPaginate
-        previousLabel={'Anterior'}
-        nextLabel={'Próximo'}
+        previousLabel={'<'}
+        nextLabel={'>'}
         breakLabel={'...'}
         breakClassName={'break-me'}
         pageCount={pageCount}
@@ -27,7 +27,7 @@ const Pagination: React.FC<PaginationProps> = props => {
         subContainerClassName={'pages pagination'}
         activeClassName={'active'}
       />
-    </Flex>
+    </PaginationContent>
   )
 }
 

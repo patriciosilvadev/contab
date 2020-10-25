@@ -19,9 +19,9 @@ export default {
   PERSON_TYPE_CLIENT: 'Cliente',
   PERSON_TYPE_SUPPLIER: 'Fornecedor',
 
-  FILTER_PERSON_ALL: 'ALL',
-  FILTER_PERSON_ACTIVE: 'ACTIVE',
-  FILTER_PERSON_INACTIVE: 'INACTIVE',
+  FILTER_ALL: 'ALL',
+  FILTER_ACTIVE: 'ACTIVE',
+  FILTER_INACTIVE: 'INACTIVE',
 
   PF: 'Pessoa Física',
   PJ: 'Pessoa Jurídica',
@@ -33,5 +33,8 @@ export default {
   IND_INSCR_SOCIAL_I: 'I',
   IND_INSCR_SOCIAL_Y_LABEL: 'Contribuinte',
   IND_INSCR_SOCIAL_N_LABEL: 'Não contribuinte',
-  IND_INSCR_SOCIAL_I_LABEL: 'Contribuinte isento'
+  IND_INSCR_SOCIAL_I_LABEL: 'Contribuinte isento',
+
+  DEFAULT_ORDER: 'name',
+  DEFAULT_HEADERS: [{ field: 'name', displayName: 'Nome' }]
 }

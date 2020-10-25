@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+
 import theme from '../../styles/theme'
 import constants from '../../config/constants'
 import { usePerson } from '../../hooks/personContext'
@@ -17,11 +18,16 @@ interface FilterButtonProps {
 }
 
 const FilterButton: React.FC<FilterButtonProps> = ({ name }) => {
-  const { countAll, countActive, filter, setFilter } = usePerson()
+  const { persons, filter, setFilter } = usePerson()
+  const [countOfActive, setCountOfActive] = useState<number>(0)
 
-  /**
-   * Elements
-   */
+  useEffect(() => {
+    const count = persons.filter(person => {
+      return person.active
+    }).length
+
+    setCountOfActive(count)
+  }, [persons])
 
   const ButtonBox: React.FC<ButtonBoxProps> = props => {
     const { title, value, color, active, onClick } = props
@@ -48,38 +54,34 @@ const FilterButton: React.FC<FilterButtonProps> = ({ name }) => {
     )
   }
 
-  /**
-   * Component
-   */
-
   return (
     <Flex
       height="100px"
-      marginY="15px"
+      marginY="20px"
       border={`1px solid ${theme.colors.gray[300]}`}
       borderRadius={10}
       overflow="hidden"
     >
       <ButtonBox
         title={`Todos ${name.toLowerCase()}`}
-        value={countAll}
+        value={persons.length}
         color="blue.300"
-        active={filter === constants.FILTER_ALL}
-        onClick={() => setFilter(constants.FILTER_ALL)}
+        active={filter === constants.FILTER_PERSON_ALL}
+        onClick={() => setFilter(constants.FILTER_PERSON_ALL)}
       />
       <ButtonBox
         title="Ativos"
-        value={countActive}
+        value={countOfActive}
         color="green.300"
-        active={filter === constants.FILTER_ACTIVE}
-        onClick={() => setFilter(constants.FILTER_ACTIVE)}
+        active={filter === constants.FILTER_PERSON_ACTIVE}
+        onClick={() => setFilter(constants.FILTER_PERSON_ACTIVE)}
       />
       <ButtonBox
         title="Inativos"
-        value={countAll - countActive}
+        value={persons.length - countOfActive}
         color="yellow.300"
-        active={filter === constants.FILTER_INACTIVE}
-        onClick={() => setFilter(constants.FILTER_INACTIVE)}
+        active={filter === constants.FILTER_PERSON_INACTIVE}
+        onClick={() => setFilter(constants.FILTER_PERSON_INACTIVE)}
       />
     </Flex>
   )

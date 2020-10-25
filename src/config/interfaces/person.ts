@@ -14,22 +14,34 @@ export interface PersonIndexProps {
 export interface PersonContextProps {
   type: string
   service: typeof ClientService | typeof SupplierService
-  persons: Person[]
+  list: Person[]
+  setList(persons: Person[]): void
   editPerson: Person
   setEditPerson(person: Person): void
   loading: boolean
+  setLoading(loading: boolean): void
   search: string
   setSearch(search: string): void
   filter: string
   setFilter(filter: string): void
   order: string
   setOrder(orderBy: string): void
+  orderAsc: boolean
+  setOrderAsc(orderAsc: boolean): void
   page: number
   setPage(page: number): void
+  itemsPerPage: number
+  setItemsPerPage(itemsPerPage: number): void
+  countAll: number
+  countActive: number
+  setCountActive(countActive: number): void
+  numberOfSelected: number
+  setNumberOfSelected(numberOfSelected: number): void
   onNewClose(): void
   onEditOpen(): void
   onEditClose(): void
   updateList(): void
+  updateListItem(person: Person): void
 }
 
 export interface PersonProviderProps {
@@ -96,10 +108,6 @@ export interface PersonListItem {
   phone?: string
   celphone?: string
   active: boolean
-}
-
-export interface ListHeader {
-  order?: string
 }
 
 export interface PersonRowProps {

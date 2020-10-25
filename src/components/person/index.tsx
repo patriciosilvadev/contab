@@ -1,19 +1,16 @@
 import React from 'react'
-
-import { Flex, useDisclosure } from '@chakra-ui/core'
-import { PersonProvider } from '../../hooks/personContext'
-
+import Search from '../../components/search'
 import Content from '../../components/content'
+import constants from '../../config/constants'
 import Button from '../../components/inputs/button'
 import Breadcrumb from '../../components/breadcrumb'
-
-import Search from '../../components/person/search'
-import PersonList from '../../components/person/list'
+import { Flex, useDisclosure } from '@chakra-ui/core'
+import PersonList from '../../components/person/listPerson'
 import FilterButton from '../../components/person/filterButtons'
-import NewPersonModal from '../../components/person/newPersonModal'
-import EditPersonModal from '../../components/person/editPersonModal'
 import { PersonIndexProps } from '../../config/interfaces/person'
-import constants from '../../config/constants'
+import NewPersonModal from '../../components/person/newPersonModal'
+import { PersonProvider, usePerson } from '../../hooks/personContext'
+import EditPersonModal from '../../components/person/editPersonModal'
 
 const PersonIndex: React.FC<PersonIndexProps> = props => {
   const { type, service } = props
@@ -40,6 +37,33 @@ const PersonIndex: React.FC<PersonIndexProps> = props => {
       breadcrumb.push({ label: 'Clientes', link: '/person' })
   }
 
+  /**
+   * Elements
+   */
+
+  const SearchList: React.FC = () => {
+    const { search, setSearch } = usePerson()
+
+    return (
+      <Flex>
+        <Button width="200px" marginRight="auto" onClick={onNewOpen}>
+          Criar novo
+        </Button>
+        <Flex width="50%">
+          <Search
+            search={search}
+            setSearch={setSearch}
+            placeholder="Procure por qualquer campo"
+          />
+        </Flex>
+      </Flex>
+    )
+  }
+
+  /**
+   * Component
+   */
+
   return (
     <PersonProvider
       type={type}
@@ -52,12 +76,7 @@ const PersonIndex: React.FC<PersonIndexProps> = props => {
         <Breadcrumb pages={breadcrumb} />
 
         <Flex direction="column" marginTop="40px">
-          <Flex>
-            <Button width="200px" marginRight="auto" onClick={onNewOpen}>
-              Criar novo
-            </Button>
-            <Search />
-          </Flex>
+          <SearchList />
           <FilterButton name={displayName} />
           <PersonList />
         </Flex>

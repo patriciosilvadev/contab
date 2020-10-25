@@ -1,5 +1,3 @@
-import '../styles/pagination.css'
-
 import React from 'react'
 import App, { AppContext } from 'next/app'
 import { AuthProvider } from '../hooks/authContext'

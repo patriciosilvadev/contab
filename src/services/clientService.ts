@@ -1,4 +1,5 @@
 import constants from '../config/constants'
+import { FindAllProps } from '../config/interfaces/list'
 import { Person, PersonValidation } from '../config/interfaces/person'
 import Server from './_server'
 
@@ -28,14 +29,14 @@ class ClientService {
   /**
    * Function to find all clients
    */
-  public async findAll(): Promise<any> {
-    const { data: list, status } = await api
-      .get('clients', { headers: Server.authHeader() })
+  public async findAll(params: FindAllProps): Promise<any> {
+    const { data, status } = await api
+      .get('clients', { headers: Server.authHeader(), params })
       .catch(error => {
         return error.response
       })
 
-    return { list, status }
+    return { data, status }
   }
 
   /**
@@ -74,7 +75,7 @@ class ClientService {
    * @param payload client inforamtion
    */
   public async toggleActive(payload: Person): Promise<any> {
-    const { data, status } = await api
+    const { status } = await api
       .put(
         'clients/toggleActive',
         { id: payload.id },
@@ -84,7 +85,7 @@ class ClientService {
         return error.response
       })
 
-    return { ...data, status }
+    return { status }
   }
 }
 

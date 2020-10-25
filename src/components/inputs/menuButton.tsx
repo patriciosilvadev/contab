@@ -11,26 +11,42 @@ import {
 import React from 'react'
 import theme from '../../styles/theme'
 
+interface CustomMenuOption {
+  value: string
+  handle: (item?: any) => void
+}
+
 interface CustomMenuButton extends MenuButtonProps {
+  item?: any
   label?: string
   isRequired?: boolean
   borderColor?: string
   bgColor?: string
   color?: string
-  options: { value: string; handle: () => void }[]
+  options: CustomMenuOption[]
 }
 
 const CustomMenuButton: React.FC<CustomMenuButton> = props => {
   const {
+    item,
     label,
-    children,
-    borderColor,
-    bgColor,
     color,
+    bgColor,
     options,
+    children,
     isRequired,
+    borderColor,
     ...rest
   } = props
+
+  const getValue = (value: string) => {
+    switch (value) {
+      case 'active':
+        return item.active ? 'Inativar' : 'Ativar'
+      default:
+        return value
+    }
+  }
 
   return (
     <Box flex={rest.flex} marginRight={rest.mr}>
@@ -62,8 +78,8 @@ const CustomMenuButton: React.FC<CustomMenuButton> = props => {
         <MenuList>
           {options &&
             options.map((option, key) => (
-              <MenuItem key={key} onClick={option.handle}>
-                {option.value}
+              <MenuItem key={key} onClick={() => option.handle(item)}>
+                {getValue(option.value)}
               </MenuItem>
             ))}
         </MenuList>
