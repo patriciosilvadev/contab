@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import Drawer from '../drawer'
 import EditPersonForm from './editPersonForm'
-import { usePerson } from '../../hooks/personContext'
+import { useEntity } from '../../hooks/entityContext'
 import { useToast } from '@chakra-ui/core'
 import { PersonValidation } from '../../config/interfaces/person'
 
@@ -13,7 +13,7 @@ interface EditPersonModalProps {
 const EditPersonModal: React.FC<EditPersonModalProps> = props => {
   const { isOpen } = props
   const toast = useToast()
-  const { type, service, editPerson, updateList, onEditClose } = usePerson()
+  const { type, service, editEntity, updateList, onEditClose } = useEntity()
 
   const [loading, setLoading] = useState<boolean>(false)
   const [validation, setValidation] = useState<PersonValidation>({
@@ -22,16 +22,16 @@ const EditPersonModal: React.FC<EditPersonModalProps> = props => {
 
   useEffect(() => {
     setValidation({ ...validation, inscEstadualIsValid: true })
-  }, [editPerson?.indInscEstadual])
+  }, [editEntity?.indInscEstadual])
 
   async function submit() {
     setLoading(true)
 
-    const { isValid, newValidation } = service.isValidatedForm(editPerson)
+    const { isValid, newValidation } = service.isValidatedForm(editEntity)
     setValidation(newValidation)
 
     if (isValid) {
-      const { status } = await service.update(editPerson)
+      const { status } = await service.update(editEntity)
       const isError = status !== 200
 
       toast({

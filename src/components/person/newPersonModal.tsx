@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { useToast } from '@chakra-ui/core'
 import NewPersonForm from './newPersonForm'
-import { usePerson } from '../../hooks/personContext'
+import { useEntity } from '../../hooks/entityContext'
 import Drawer from '../drawer'
 import { Person, PersonValidation } from '../../config/interfaces/person'
 
@@ -14,7 +14,7 @@ const NewPersonModal: React.FC<NewPersonModalProps> = props => {
   const { isOpen } = props
   const toast = useToast()
   const [loading, setLoading] = useState<boolean>(false)
-  const { type, onNewClose, updateList, service } = usePerson()
+  const { type, onNewClose, updateList, service } = useEntity()
 
   const [person, setPerson] = useState<Person>({
     type: 'PF',

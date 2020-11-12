@@ -26,7 +26,6 @@ const NewPersonForm: React.FC<NewPersonProps> = props => {
         invalidMessage="Campo obrigatório"
       />
       <Input
-        marginBottom="15px"
         label="Email"
         value={person.email}
         type="email"
@@ -53,7 +52,6 @@ const NewPersonForm: React.FC<NewPersonProps> = props => {
 
       {person.type === 'PJ' && (
         <Input
-          marginBottom="15px"
           label="CNPJ"
           value={person.cnpj}
           type="text"
@@ -64,7 +62,6 @@ const NewPersonForm: React.FC<NewPersonProps> = props => {
 
       {person.type === 'PF' && (
         <Input
-          marginBottom="15px"
           label="CPF"
           value={person.cpf}
           type="text"
@@ -74,7 +71,6 @@ const NewPersonForm: React.FC<NewPersonProps> = props => {
       )}
 
       <Input
-        marginBottom="15px"
         label="Telefone"
         value={person.phone}
         type="text"
@@ -82,7 +78,6 @@ const NewPersonForm: React.FC<NewPersonProps> = props => {
         onChange={e => setPerson({ ...person, phone: e.target.value })}
       />
       <Input
-        marginBottom="15px"
         label="Celular"
         value={person.celphone}
         type="text"

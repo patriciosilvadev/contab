@@ -1,9 +1,8 @@
 import React from 'react'
-
-import { Flex, Text } from '@chakra-ui/core'
+import Select from '../inputs/select/select'
 import ButtonOut from '../inputs/buttonOut'
+import { Flex, Text } from '@chakra-ui/core'
 import { ActionListProps } from '../../config/interfaces/list'
-import Select from '../inputs/select'
 
 interface ListLegendProps {
   context(): any
@@ -60,21 +59,23 @@ const ListLegend: React.FC<ListLegendProps> = props => {
           Registros por página:
         </Text>
         <Select
-          height="30px"
+          margin={0}
           width="80px"
+          height="30px"
           fontSize={12}
+          alignItems="center"
           value={itemsPerPage}
-          placeholder="Itens por página"
-          onChange={e => {
+          setValue={quantity => {
             setPage(0)
-            setItemsPerPage(e.target.value)
+            setItemsPerPage(quantity.value)
           }}
-        >
-          <option value={10}>10</option>
-          <option value={25}>25</option>
-          <option value={50}>50</option>
-          <option value={100}>100</option>
-        </Select>
+          options={[
+            { label: '10', value: 10 },
+            { label: '25', value: 25 },
+            { label: '50', value: 50 },
+            { label: '100', value: 100 }
+          ]}
+        />
       </Flex>
     </Flex>
   )

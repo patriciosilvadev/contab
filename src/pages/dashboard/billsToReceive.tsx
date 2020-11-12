@@ -2,7 +2,7 @@ import React from 'react'
 import { PseudoBox, PseudoBoxProps, Text } from '@chakra-ui/core'
 import theme from '../../styles/theme'
 import CardInfo from '../../components/cardInfo'
-import Button from '../inputs/button'
+import Button from '../../components/inputs/button'
 
 const BillsToReceive: React.FC<PseudoBoxProps> = props => {
   return (

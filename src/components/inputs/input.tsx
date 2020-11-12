@@ -27,7 +27,9 @@ const Input: React.FC<InputCustomProps> = props => {
         </Text>
       )}
       <ChakraInput
+        _placeholder={{ color: 'gray.300' }}
         height="50px"
+        marginBottom={!invalidMessage ? '25px' : ''}
         borderColor="gray.300"
         focusBorderColor="green.100"
         borderRadius="sm"

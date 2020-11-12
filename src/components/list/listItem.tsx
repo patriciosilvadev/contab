@@ -1,5 +1,7 @@
+import TD from './tD'
 import React from 'react'
 import { TR } from './styles'
+import theme from '../../styles/theme'
 import { Badge, Checkbox } from '@chakra-ui/core'
 import CustomMenuButton from '../inputs/menuButton'
 import { ListItemProps } from '../../config/interfaces/list'
@@ -7,6 +9,8 @@ import { ListItemProps } from '../../config/interfaces/list'
 const ListItem: React.FC<ListItemProps> = props => {
   const { item, context, headers, options, hasCheck } = props
   const { list, setList, numberOfSelected, setNumberOfSelected } = context()
+
+  const statusColor = { SENT: 'green', PENDING: 'yellow', CANCELED: 'red' }
 
   /**
    * Actions
@@ -31,31 +35,63 @@ const ListItem: React.FC<ListItemProps> = props => {
    * Elements
    */
 
-  const TD: React.FC<any> = props => (
-    <td style={{ padding: 10, fontSize: 14 }} {...props}>
-      {props.children}
-    </td>
-  )
-
   return (
     <TR>
       {hasCheck && (
         <TD>
           <Checkbox
             size="lg"
+            variantColor="green"
             isChecked={item.selected}
+            borderColor={theme.colors.gray[300]}
             onChange={e => setSelected(e.target.checked)}
           />
         </TD>
       )}
 
       {headers.map(header => {
-        const data = item[header.field]
+        let data = item[header.field]
+        let [objectProp, property, subProperty] = ['', '', '']
+
+        if (header.fieldObject) {
+          ;[objectProp, property, subProperty] = header.fieldObject
+          const object = item[objectProp]
+
+          if (object) {
+            const propertyData = object[property]
+            data = subProperty
+              ? propertyData
+                ? propertyData[subProperty]
+                : null
+              : propertyData
+          }
+        }
+
+        const key = header.field || objectProp + property
+        header.field = header.field || property || subProperty
+
+        const getDataFormat = (data: any, format: string) => {
+          if (data) {
+            switch (format) {
+              case 'decimal':
+              case 'currency':
+                return parseFloat(data).toLocaleString('pt-BR', {
+                  minimumFractionDigits: 2
+                })
+              case 'date':
+                return new Date(data).toLocaleDateString('pt-BR')
+              default:
+                return data
+            }
+          } else {
+            return '-'
+          }
+        }
 
         switch (header.field) {
           case 'active':
             return (
-              <TD key={header.field}>
+              <TD key={key}>
                 <Badge
                   verticalAlign="-webkit-baseline-middle"
                   borderRadius="20px"
@@ -67,18 +103,39 @@ const ListItem: React.FC<ListItemProps> = props => {
               </TD>
             )
 
+          case 'status':
+            return (
+              <TD key={key}>
+                <Badge
+                  verticalAlign="-webkit-baseline-middle"
+                  borderRadius="20px"
+                  padding="2px 8px"
+                  variantColor={statusColor[data]}
+                >
+                  {data}
+                </Badge>
+              </TD>
+            )
+
+          case 'serie':
+            // eslint-disable-next-line no-case-declarations
+            const entity = item.nf || item
+            return (
+              <TD key={key}>
+                {entity.serie} - {entity.nfNumber}
+              </TD>
+            )
+
           case 'cpf':
           case 'cnpj':
-            return <TD key={header.field}>{item.cpf || item.cnpj || '-'}</TD>
+            return <TD key={key}>{item.cpf || item.cnpj || '-'}</TD>
 
           case 'phone':
           case 'celphone':
-            return (
-              <TD key={header.field}>{item.phone || item.celphone || '-'}</TD>
-            )
+            return <TD key={key}>{item.phone || item.celphone || '-'}</TD>
 
           default:
-            return <TD key={header.field}>{data || '-'}</TD>
+            return <TD key={key}>{getDataFormat(data, header.type)}</TD>
         }
       })}
 

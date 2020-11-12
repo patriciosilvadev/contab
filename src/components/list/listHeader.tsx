@@ -4,6 +4,7 @@ import HeaderCell from './listHeaderCell'
 import theme from '../../styles/theme'
 import { Checkbox } from '@chakra-ui/core'
 import { HeadersProps } from '../../config/interfaces/list'
+import THead from './tHead'
 
 interface ListHeaderProps {
   context(): any
@@ -62,20 +63,14 @@ const ListHeader: React.FC<ListHeaderProps> = props => {
    */
 
   return (
-    <thead
-      style={{
-        textAlign: 'left',
-        borderBottomWidth: 1,
-        borderColor: theme.colors.gray[300],
-        backgroundColor: theme.colors.gray[100]
-      }}
-    >
+    <THead>
       <tr>
         {hasCheck && (
-          <HeaderCell>
+          <HeaderCell first>
             {hasItemToShow && (
               <Checkbox
                 size="lg"
+                variantColor="green"
                 backgroundColor="white"
                 borderColor={theme.colors.gray[300]}
                 borderRadius={5}
@@ -88,20 +83,27 @@ const ListHeader: React.FC<ListHeaderProps> = props => {
             )}
           </HeaderCell>
         )}
-        {headers.map(header => (
-          <HeaderCell
-            key={header.field}
-            order={header.field}
-            orderAsc={orderAsc}
-            selected={order === header.field}
-            onChangeOrder={onChangeOrder}
-          >
-            {header.displayName || header.field}
-          </HeaderCell>
-        ))}
-        {hasItemOptions && <HeaderCell />}
+        {headers.map((header, index) => {
+          const [objectProp, property] = header.fieldObject || ['', '']
+          const key = header.field || objectProp + property
+
+          return (
+            <HeaderCell
+              key={key}
+              orderAsc={orderAsc}
+              order={header.field}
+              onChangeOrder={onChangeOrder}
+              selected={order === header.field}
+              first={!hasCheck && index === 0}
+              last={!hasItemOptions && index === headers.length - 1}
+            >
+              {header.displayName || header.field}
+            </HeaderCell>
+          )
+        })}
+        {hasItemOptions && <HeaderCell last />}
       </tr>
-    </thead>
+    </THead>
   )
 }
 

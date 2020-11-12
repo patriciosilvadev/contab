@@ -1,52 +1,16 @@
 import React from 'react'
 import theme from '../../styles/theme'
+import { Flex } from '@chakra-ui/core'
+import FilterButton from '../filterButton'
 import constants from '../../config/constants'
-import { usePerson } from '../../hooks/personContext'
-import { Flex, PseudoBox, Text } from '@chakra-ui/core'
-
-interface ButtonBoxProps {
-  title: string
-  value: number
-  color: string
-  active: boolean
-  onClick(): void
-}
+import { useEntity } from '../../hooks/entityContext'
 
 interface FilterButtonProps {
   name: string
 }
 
-const FilterButton: React.FC<FilterButtonProps> = ({ name }) => {
-  const { countAll, countActive, filter, setFilter } = usePerson()
-
-  /**
-   * Elements
-   */
-
-  const ButtonBox: React.FC<ButtonBoxProps> = props => {
-    const { title, value, color, active, onClick } = props
-
-    return (
-      <PseudoBox
-        display="flex"
-        flex={1}
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        cursor="pointer"
-        borderTopWidth={4}
-        borderTopColor={active ? color : theme.colors.gray[300]}
-        _hover={{ borderTopColor: color }}
-        transition="all 0.3s"
-        onClick={onClick}
-      >
-        <Text>{title}</Text>
-        <Text fontSize={28} fontWeight="bold" color={color}>
-          {value}
-        </Text>
-      </PseudoBox>
-    )
-  }
+const FilterButtons: React.FC<FilterButtonProps> = ({ name }) => {
+  const { countAll, countActive, filter, setFilter } = useEntity()
 
   /**
    * Component
@@ -56,28 +20,29 @@ const FilterButton: React.FC<FilterButtonProps> = ({ name }) => {
     <Flex
       height="100px"
       marginY="15px"
-      border={`1px solid ${theme.colors.gray[300]}`}
-      borderRadius={10}
+      borderRadius={5}
       overflow="hidden"
+      border={`1px solid ${theme.colors.gray[300]}`}
+      boxShadow="0 0 10px 0 rgba(225,225,225,0.4)"
     >
-      <ButtonBox
+      <FilterButton
         title={`Todos ${name.toLowerCase()}`}
         value={countAll}
-        color="blue.300"
+        color="blue.400"
         active={filter === constants.FILTER_ALL}
         onClick={() => setFilter(constants.FILTER_ALL)}
       />
-      <ButtonBox
+      <FilterButton
         title="Ativos"
         value={countActive}
-        color="green.300"
+        color="green.400"
         active={filter === constants.FILTER_ACTIVE}
         onClick={() => setFilter(constants.FILTER_ACTIVE)}
       />
-      <ButtonBox
+      <FilterButton
         title="Inativos"
         value={countAll - countActive}
-        color="yellow.300"
+        color="yellow.400"
         active={filter === constants.FILTER_INACTIVE}
         onClick={() => setFilter(constants.FILTER_INACTIVE)}
       />
@@ -85,4 +50,4 @@ const FilterButton: React.FC<FilterButtonProps> = ({ name }) => {
   )
 }
 
-export default FilterButton
+export default FilterButtons

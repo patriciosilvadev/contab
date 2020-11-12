@@ -1,47 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
+import ProductList from './productList'
+import ProductModal from './productModal'
 import Content from '../../components/content'
-import Button from '../../components/inputs/button'
-import Search from '../../components/person/search'
+import constants from '../../config/constants'
+import PageTitle from '../../components/pageTitle'
 import Breadcrumb from '../../components/breadcrumb'
 import { Flex, useDisclosure } from '@chakra-ui/core'
-import { ProductProvider } from '../../hooks/productContext'
+import ListSearch from '../../components/list/listSearch'
+import productService from '../../services/productService'
+import { EntityProvider, useEntity } from '../../hooks/entityContext'
 
 const ProductIndex: React.FC = () => {
-  const {
-    isOpen: isNewOpen,
-    onOpen: onNewOpen,
-    onClose: onNewClose
-  } = useDisclosure()
-  const {
-    isOpen: isEditOpen,
-    onOpen: onEditOpen,
-    onClose: onEditClose
-  } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [editMode, setEditMode] = useState<boolean>(false)
 
   const breadcrumb = [
     { label: 'Visão Geral', link: '/' },
     { label: 'Produtos', link: '/products' }
   ]
 
+  const onNewOpen = () => {
+    setEditMode(false)
+    onOpen()
+  }
+
   return (
-    <ProductProvider
-      onNewClose={onNewClose}
-      onEditClose={onEditClose}
-      onEditOpen={onEditOpen}
+    <EntityProvider
+      onEditOpen={onOpen}
+      onNewClose={onClose}
+      onEditClose={onClose}
+      service={productService}
+      type={constants.TYPE_PRODUCT}
     >
       <Content title="Produtos">
         <Breadcrumb pages={breadcrumb} />
+        <PageTitle>Cadastro de Produtos</PageTitle>
 
-        <Flex direction="column" marginTop="40px">
-          <Flex>
-            <Button width="200px" marginRight="auto" onClick={onNewOpen}>
-              Criar novo
-            </Button>
-            <Search />
-          </Flex>
+        <Flex direction="column" marginTop="25px">
+          <ListSearch context={useEntity} onNewOpen={onNewOpen} />
+          <ProductList setEditMode={setEditMode} />
         </Flex>
       </Content>
-    </ProductProvider>
+
+      <ProductModal isOpen={isOpen} isEditMode={editMode} />
+    </EntityProvider>
   )
 }
 

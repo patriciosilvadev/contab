@@ -1,16 +1,16 @@
 import React from 'react'
-import { useAuth, ProtectRoute } from '../hooks/authContext'
+import { useAuth, ProtectRoute } from '../../hooks/authContext'
 import { Flex } from '@chakra-ui/core'
 
-import AlertPlan from '../components/alertPlan'
-import Content from '../components/content'
-import BillsToReceive from '../components/dashboard/billsToReceive'
-import BankAccounts from '../components/dashboard/bankAccounts'
-import BillsToPay from '../components/dashboard/billsToPay'
-import OverdueReceipts from '../components/dashboard/overdueReceipts'
-import LatePayments from '../components/dashboard/latePayments'
-import CashFlowChart from '../components/dashboard/cashFlowChart'
-import SalesChart from '../components/dashboard/salesChart'
+import AlertPlan from '../../components/alertPlan'
+import Content from '../../components/content'
+import BillsToReceive from './billsToReceive'
+import BankAccounts from './bankAccounts'
+import BillsToPay from './billsToPay'
+import OverdueReceipts from './overdueReceipts'
+import LatePayments from './latePayments'
+import CashFlowChart from './cashFlowChart'
+import SalesChart from './salesChart'
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth()

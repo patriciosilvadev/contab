@@ -1,16 +1,16 @@
 import React from 'react'
-import Search from '../../components/search'
 import Content from '../../components/content'
 import constants from '../../config/constants'
-import Button from '../../components/inputs/button'
 import Breadcrumb from '../../components/breadcrumb'
 import { Flex, useDisclosure } from '@chakra-ui/core'
 import PersonList from '../../components/person/listPerson'
 import FilterButton from '../../components/person/filterButtons'
 import { PersonIndexProps } from '../../config/interfaces/person'
 import NewPersonModal from '../../components/person/newPersonModal'
-import { PersonProvider, usePerson } from '../../hooks/personContext'
+import { EntityProvider, useEntity } from '../../hooks/entityContext'
 import EditPersonModal from '../../components/person/editPersonModal'
+import ListSearch from '../list/listSearch'
+import PageTitle from '../pageTitle'
 
 const PersonIndex: React.FC<PersonIndexProps> = props => {
   const { type, service } = props
@@ -26,11 +26,10 @@ const PersonIndex: React.FC<PersonIndexProps> = props => {
   } = useDisclosure()
 
   const breadcrumb = [{ label: 'Visão Geral', link: '/' }]
-  const displayName =
-    type + (type === constants.PERSON_TYPE_SUPPLIER ? 'es' : 's')
+  const displayName = type + (type === constants.TYPE_SUPPLIER ? 'es' : 's')
 
   switch (type) {
-    case constants.PERSON_TYPE_SUPPLIER:
+    case constants.TYPE_SUPPLIER:
       breadcrumb.push({ label: 'Fornecedores', link: '/suppliers' })
       break
     default:
@@ -38,34 +37,11 @@ const PersonIndex: React.FC<PersonIndexProps> = props => {
   }
 
   /**
-   * Elements
-   */
-
-  const SearchList: React.FC = () => {
-    const { search, setSearch } = usePerson()
-
-    return (
-      <Flex>
-        <Button width="200px" marginRight="auto" onClick={onNewOpen}>
-          Criar novo
-        </Button>
-        <Flex width="50%">
-          <Search
-            search={search}
-            setSearch={setSearch}
-            placeholder="Procure por qualquer campo"
-          />
-        </Flex>
-      </Flex>
-    )
-  }
-
-  /**
    * Component
    */
 
   return (
-    <PersonProvider
+    <EntityProvider
       type={type}
       service={service}
       onNewClose={onNewClose}
@@ -74,9 +50,10 @@ const PersonIndex: React.FC<PersonIndexProps> = props => {
     >
       <Content title={displayName}>
         <Breadcrumb pages={breadcrumb} />
+        <PageTitle>Cadastro de {type}</PageTitle>
 
-        <Flex direction="column" marginTop="40px">
-          <SearchList />
+        <Flex direction="column" marginTop="25px">
+          <ListSearch context={useEntity} onNewOpen={onNewOpen} />
           <FilterButton name={displayName} />
           <PersonList />
         </Flex>
@@ -84,7 +61,7 @@ const PersonIndex: React.FC<PersonIndexProps> = props => {
         <NewPersonModal isOpen={isNewOpen} />
         <EditPersonModal isOpen={isEditOpen} />
       </Content>
-    </PersonProvider>
+    </EntityProvider>
   )
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import List from '../list'
 import { useToast } from '@chakra-ui/core'
-import { usePerson } from '../../hooks/personContext'
+import { useEntity } from '../../hooks/entityContext'
 import { Person } from '../../config/interfaces/person'
 
 const PersonList: React.FC = () => {
@@ -9,14 +9,14 @@ const PersonList: React.FC = () => {
   const {
     type,
     service,
-    setEditPerson,
+    setEditEntity,
     onEditOpen,
     updateList,
     setNumberOfSelected,
     updateListItem,
     countActive,
     setCountActive
-  } = usePerson()
+  } = useEntity()
 
   /**
    * Actions
@@ -34,7 +34,7 @@ const PersonList: React.FC = () => {
   }
 
   const edit = (person: Person) => {
-    setEditPerson(person)
+    setEditEntity(person)
     onEditOpen()
   }
 
@@ -85,7 +85,7 @@ const PersonList: React.FC = () => {
       entityName={type}
       headers={headers}
       actions={actions}
-      context={usePerson}
+      context={useEntity}
       itemOptions={options}
     />
   )

@@ -14,7 +14,7 @@ const Search: React.FC<SearchProps> = props => {
   const { search, setSearch, ...rest } = props
 
   return (
-    <InputGroup flex={1} marginLeft="30px">
+    <InputGroup flex={1}>
       <InputLeftElement style={{ height: '50px' }}>
         <BsSearch style={{ fill: theme.colors.gray[600] }} />
       </InputLeftElement>
@@ -22,6 +22,7 @@ const Search: React.FC<SearchProps> = props => {
         flex="1"
         paddingLeft="40px"
         value={search}
+        placeholder={rest.placeholder || 'Procurar'}
         onChange={e => setSearch(e.target.value)}
         {...rest}
       />

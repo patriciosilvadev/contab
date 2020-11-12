@@ -1,14 +1,23 @@
 import React from 'react'
+import TH from './tH'
 import Link from '../inputs/link'
 import { Text } from '@chakra-ui/core'
 import { ListHeader } from '../../config/interfaces/list'
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti'
 
 const HeaderCell: React.FC<ListHeader> = props => {
-  const { order, orderAsc, selected, onChangeOrder, children } = props
+  const {
+    order,
+    orderAsc,
+    selected,
+    onChangeOrder,
+    children,
+    first,
+    last
+  } = props
 
   return (
-    <th style={{ padding: 10 }}>
+    <TH borderTopLeftRadius={first ? 4 : 0} borderTopRightRadius={last ? 4 : 0}>
       {order ? (
         <Link
           onClick={() => onChangeOrder(order)}
@@ -30,7 +39,7 @@ const HeaderCell: React.FC<ListHeader> = props => {
           {children}
         </Text>
       )}
-    </th>
+    </TH>
   )
 }
 

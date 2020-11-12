@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import theme from '../../styles/theme'
 import { motion } from 'framer-motion'
 import { Box, PseudoBox, Stack, Link, Flex, Text } from '@chakra-ui/core'
 
@@ -21,11 +20,6 @@ export const SiteMenu = props => (
 
 const SiteMenuItem = ({ link, sections, ...props }) => {
   const [showOptions, setShowOptions] = useState<boolean>(false)
-
-  const variants = {
-    open: { opacity: 1, x: 0 },
-    closed: { opacity: 0, x: '-100%' }
-  }
 
   return (
     <PseudoBox
@@ -53,6 +47,8 @@ const SiteMenuItem = ({ link, sections, ...props }) => {
           backgroundColor: sections ? 'green.300' : 'white',
           borderTopColor: sections ? 'green.100' : 'white'
         }}
+        _focus={{ outline: 'none' }}
+        _active={{ outline: 'none' }}
         transition="all 0.1s"
         cursor="pointer"
       >

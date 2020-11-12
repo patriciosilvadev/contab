@@ -45,13 +45,17 @@ class SupplierService {
    * @param payload supplier inforamtion
    */
   public async create(payload: Person): Promise<any> {
+    if (!payload.type) {
+      payload.type = constants.PF_TYPE
+    }
+
     const { data, status } = await api
       .post('suppliers', payload, { headers: Server.authHeader() })
       .catch(error => {
         return error.response
       })
 
-    return { ...data, status }
+    return { data, status }
   }
 
   /**
@@ -66,7 +70,7 @@ class SupplierService {
         return error.response
       })
 
-    return { ...data, status }
+    return { data, status }
   }
 
   /**
@@ -85,7 +89,7 @@ class SupplierService {
         return error.response
       })
 
-    return { ...data, status }
+    return { data, status }
   }
 }
 

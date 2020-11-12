@@ -8,7 +8,9 @@ export interface FindAllProps {
 }
 
 export interface HeadersProps {
-  field: string
+  field?: string
+  type?: string
+  fieldObject?: string[]
   displayName?: string
 }
 
@@ -19,6 +21,8 @@ export interface ActionListProps {
 }
 
 export interface ListHeader {
+  first?: boolean
+  last?: boolean
   order?: string
   orderAsc?: boolean
   selected?: boolean

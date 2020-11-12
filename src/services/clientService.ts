@@ -51,7 +51,7 @@ class ClientService {
         return error.response
       })
 
-    return { ...data, status }
+    return { data, status }
   }
 
   /**
@@ -66,7 +66,7 @@ class ClientService {
         return error.response
       })
 
-    return { ...data, status }
+    return { data, status }
   }
 
   /**

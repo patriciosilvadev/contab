@@ -6,31 +6,39 @@ interface CardInfoProps extends PseudoBoxProps {
   title?: string
   header?: string
   headerInfo?: string
+  hideBorders?: boolean
   headerTooltip?: string
 }
 
 const CardInfo: React.FC<CardInfoProps> = props => {
-  const { title, header, headerInfo, headerTooltip } = props
-  const finalProps = { ...props }
-  finalProps.title = undefined
+  const {
+    title,
+    header,
+    headerInfo,
+    headerTooltip,
+    hideBorders,
+    ...rest
+  } = props
 
   return (
     <PseudoBox
       width="100%"
-      border={`1px solid ${theme.colors.gray[300]}`}
+      border={!hideBorders ? `1px solid ${theme.colors.gray[300]}` : ''}
       borderRadius="5px"
-      boxShadow="0 0 10px 0 rgba(225,225,225,0.4)"
       transition="all 0.3s"
       cursor="pointer"
-      _hover={{
-        border: `1px solid ${theme.colors.green[300]}`,
-        boxShadow: `0 2px 4px 0 ${theme.colors.gray[300]}`
-      }}
-      {...finalProps}
+      _hover={
+        !hideBorders
+          ? {
+              border: `1px solid ${theme.colors.green[300]}`
+            }
+          : {}
+      }
+      {...rest}
     >
       {header && (
         <Text
-          padding="20px 30px"
+          padding={!hideBorders ? '20px 30px' : ''}
           display="flex"
           flexDirection="row"
           borderBottom={
@@ -59,7 +67,7 @@ const CardInfo: React.FC<CardInfoProps> = props => {
       )}
 
       {(props.children || title) && (
-        <PseudoBox padding="30px" width="100%">
+        <PseudoBox padding={!hideBorders ? '30px' : 0} width="100%">
           {title && (
             <Text fontSize={18} color="gray.600">
               {title}

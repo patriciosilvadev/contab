@@ -1,10 +1,9 @@
 import React from 'react'
-
 import theme from '../../styles/theme'
-import { Flex } from '@chakra-ui/core'
+import { Flex, PseudoBoxProps } from '@chakra-ui/core'
 
-const ListTable: React.FC = props => {
-  const { children } = props
+const ListTable: React.FC<PseudoBoxProps> = props => {
+  const { children, ...rest } = props
 
   /**
    * Component
@@ -12,14 +11,16 @@ const ListTable: React.FC = props => {
 
   return (
     <Flex
-      direction="column"
       borderWidth={1}
-      borderColor={theme.colors.gray[300]}
-      borderRadius={10}
-      overflow="hidden"
+      borderRadius={5}
+      direction="column"
       marginBottom="15px"
+      borderColor={theme.colors.gray[300]}
+      {...rest}
     >
-      <table>{children}</table>
+      <table style={{ position: 'relative', borderCollapse: 'collapse' }}>
+        {children}
+      </table>
     </Flex>
   )
 }

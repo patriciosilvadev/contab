@@ -7,10 +7,7 @@ import supplierService from '../../services/supplierService'
 
 const Suppliers: React.FC = () => {
   return (
-    <PersonIndex
-      type={constants.PERSON_TYPE_SUPPLIER}
-      service={supplierService}
-    />
+    <PersonIndex type={constants.TYPE_SUPPLIER} service={supplierService} />
   )
 }
 

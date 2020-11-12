@@ -1,9 +1,8 @@
 import React, { useState, useEffect, createContext, useContext } from 'react'
 import {
-  Person,
-  PersonContextProps,
-  PersonProviderProps
-} from '../config/interfaces/person'
+  EntityContextProps,
+  EntityProviderProps
+} from '../config/interfaces/entity'
 
 import Loading from '../components/loading'
 import constants from '../config/constants'
@@ -12,19 +11,19 @@ import { FindAllProps } from '../config/interfaces/list'
 /**
  * Create a context to control shared data
  */
-const PersonContext = createContext<PersonContextProps>(
-  {} as PersonContextProps
+const EntityContext = createContext<EntityContextProps>(
+  {} as EntityContextProps
 )
 
-const PersonProvider: React.FC<PersonProviderProps> = props => {
+const EntityProvider: React.FC<EntityProviderProps> = props => {
   const { type, service, children, onNewClose, onEditClose, onEditOpen } = props
 
   /**
    * Initialize properties model controlled by provider
    */
   const [loading, setLoading] = useState(true)
-  const [list, setList] = useState<Person[]>([])
-  const [editPerson, setEditPerson] = useState<Person>(null)
+  const [list, setList] = useState<any[]>([])
+  const [editEntity, setEditEntity] = useState<any>(null)
 
   const [countAll, setCountAll] = useState<number>(0)
   const [countActive, setCountActive] = useState<number>(0)
@@ -68,27 +67,36 @@ const PersonProvider: React.FC<PersonProviderProps> = props => {
     setLoading(false)
   }
 
-  const updateListItem = (person: Person) => {
+  const updateListItem = (entity: any) => {
     const listCopy = [...list]
-    const itemIndex = list.findIndex(personFound => {
-      return personFound.id === person.id
+    const entityIndex = list.findIndex(entityFound => {
+      return entityFound.id === entity.id
     })
 
-    if (itemIndex > -1) {
-      listCopy[itemIndex] = { ...person }
+    if (entityIndex > -1) {
+      listCopy[entityIndex] = { ...entity }
       setList(listCopy)
     }
   }
 
+  const removeListItem = (entity: any) => {
+    const listCopy = [...list]
+    const filteredList = listCopy.filter(entityFound => {
+      return entityFound.id !== entity.id
+    })
+
+    setList(filteredList)
+  }
+
   return (
-    <PersonContext.Provider
+    <EntityContext.Provider
       value={{
         type,
         service,
         list,
         setList,
-        editPerson,
-        setEditPerson,
+        editEntity,
+        setEditEntity,
         loading,
         setLoading,
         search,
@@ -112,23 +120,24 @@ const PersonProvider: React.FC<PersonProviderProps> = props => {
         onEditClose,
         onEditOpen,
         updateList: loadList,
-        updateListItem: updateListItem
+        updateListItem: updateListItem,
+        removeListItem: removeListItem
       }}
     >
       <Loading visible={loading} />
       {children}
-    </PersonContext.Provider>
+    </EntityContext.Provider>
   )
 }
 
 /**
- * Hook to use PersonsContext
+ * Hook to use EntityContext
  */
-function usePerson(): PersonContextProps {
-  return useContext(PersonContext)
+function useEntity(): EntityContextProps {
+  return useContext(EntityContext)
 }
 
 /**
  * Export modules
  */
-export { PersonProvider, usePerson }
+export { EntityProvider, useEntity }

@@ -7,19 +7,18 @@ interface CustomButtonProps extends ButtonProps {
 }
 
 const Button: React.FC<CustomButtonProps> = props => {
-  const { loading, variation, children } = props
-  const finalProps = { ...props }
-  finalProps.loading = undefined
+  const { loading, variation, children, isDisabled, ...rest } = props
+  const disabled = isDisabled || loading || false
 
   return (
     <ChakraButton
-      backgroundColor={variation === 'secondary' ? 'gray.600' : 'green.300'}
       color="white"
       height="50px"
       borderRadius="sm"
-      _hover={{ backgroundColor: 'green.100' }}
-      isDisabled={loading || false}
-      {...finalProps}
+      isDisabled={disabled}
+      _hover={{ backgroundColor: disabled ? null : 'green.100' }}
+      backgroundColor={variation === 'secondary' ? 'gray.600' : 'green.300'}
+      {...rest}
     >
       {loading ? <Spinner /> : children}
     </ChakraButton>
