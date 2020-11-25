@@ -8,10 +8,10 @@ interface UserAuth {
 
 interface UserPost {
   name: string
-  email: string
-  cellphone: string
-  password: string
   role: string
+  email: string
+  password: string
+  cellphone: string
 }
 
 const api = Server.api
@@ -22,26 +22,44 @@ class UserService {
    *
    * @param user entity to valudate
    */
-  public isValidatedForm(user) {
+  public isValidatedForm(user: User, isEdit?: boolean) {
     const cellphoneRegex = /^\d{11}$/
     const newValidation: FormValidation = {} as FormValidation
 
+    newValidation.addressCepIsValid = true
     newValidation.nameIsValid = !!user.name.trim()
-    newValidation.emailIsValid = !!user.email.trim()
-    newValidation.cellphoneIsValid =
-      !!user.cellphone.trim() && cellphoneRegex.test(user.cellphone)
     newValidation.roleIsValid = !!user.role.trim()
+    newValidation.emailIsValid = !!user.email.trim()
+    newValidation.celphoneIsValid =
+      !!user.celphone.trim() && cellphoneRegex.test(user.celphone)
+    newValidation.passwordIsValid = user.password
+      ? !!user.password.trim()
+      : true
 
-    if (user.password) {
-      newValidation.passwordIsValid = !!user.password.trim()
+    if (isEdit) {
+      newValidation.cnpjIsValid = !!user.cnpj?.trim()
+      newValidation.razaoIsValid = !!user.razaoSocial?.trim()
+      newValidation.addressCityIsValid = !!user.address?.city?.trim()
+      newValidation.addressStateIsValid = !!user.address?.state?.trim()
+
+      newValidation.certificatePassIsValid = user.certificate
+        ? !!user.certificatePass?.trim()
+        : true
     }
 
     const isValid =
       newValidation.nameIsValid &&
+      newValidation.roleIsValid &&
       newValidation.emailIsValid &&
-      newValidation.cellphoneIsValid &&
+      newValidation.celphoneIsValid &&
       (user.password ? newValidation.passwordIsValid : true) &&
-      newValidation.roleIsValid
+      (isEdit
+        ? newValidation.cnpjIsValid &&
+          newValidation.razaoIsValid &&
+          newValidation.addressCityIsValid &&
+          newValidation.addressStateIsValid &&
+          newValidation.certificatePassIsValid
+        : true)
 
     return { isValid, newValidation }
   }

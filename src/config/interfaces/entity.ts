@@ -13,8 +13,8 @@ export interface EntityContextProps {
   setLoading(loading: boolean): void
   search: string
   setSearch(search: string): void
-  filter: string
-  setFilter(filter: string): void
+  filters: any[]
+  setFilters(filter: any[]): void
   order: string
   setOrder(orderBy: string): void
   orderAsc: boolean

@@ -18,7 +18,10 @@ const ProductSuppliersForm: React.FC<ProductFormProps> = props => {
           if (value.length) {
             setProduct({ ...product, suppliers: value })
           } else {
-            setProduct({ ...product, suppliers: [...product.suppliers, value] })
+            setProduct({
+              ...product,
+              suppliers: [...(product.suppliers || []), value]
+            })
           }
         }}
       />

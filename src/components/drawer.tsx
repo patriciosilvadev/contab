@@ -8,15 +8,14 @@ import {
   DrawerBody,
   Stack,
   DrawerFooter,
-  Drawer as DrawerChakra,
-  Text
+  Drawer as DrawerChakra
 } from '@chakra-ui/core'
 import Button from './inputs/button'
 
 interface DrawerProps {
   title: string
   buttonText: string
-  submitForm(): void
+  submitForm?(): void
   isOpen: boolean
   onClose(): void
   size?: any
@@ -58,11 +57,13 @@ const Drawer: React.FC<DrawerProps> = props => {
               marginRight={3}
               onClick={onClose}
             >
-              Cancelar
+              {submitForm ? 'Cancelar' : 'Fechar'}
             </ChakraButton>
-            <Button width="200px" onClick={submitForm}>
-              {buttonText}
-            </Button>
+            {submitForm && (
+              <Button width="200px" onClick={submitForm}>
+                {buttonText}
+              </Button>
+            )}
           </DrawerFooter>
         </DrawerContent>
       </DrawerChakra>

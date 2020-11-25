@@ -23,26 +23,6 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
   const { loading, validation } = props
   const { editEntity, setEditEntity } = useEntity()
 
-  const typeActions = [
-    { value: 'PF', label: 'Física' },
-    { value: 'PJ', label: 'Jurídica' }
-  ]
-
-  const indInscrSocial = [
-    {
-      value: constants.IND_INSCR_SOCIAL_Y,
-      label: constants.IND_INSCR_SOCIAL_Y_LABEL
-    },
-    {
-      value: constants.IND_INSCR_SOCIAL_N,
-      label: constants.IND_INSCR_SOCIAL_N_LABEL
-    },
-    {
-      value: constants.IND_INSCR_SOCIAL_I,
-      label: constants.IND_INSCR_SOCIAL_I_LABEL
-    }
-  ]
-
   const loadAddressByCep = async () => {
     if (editEntity.addresses) {
       const addressList = []
@@ -94,7 +74,7 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
           flex={1}
           label="Tipo de pessoa"
           value={editEntity.type}
-          options={typeActions}
+          options={constants.PERSON_TYPES}
           setValue={type =>
             setEditEntity({
               ...editEntity,
@@ -257,7 +237,7 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
               flex={1}
               label="Indicação de Inscrição Social"
               value={editEntity.indInscEstadual}
-              options={indInscrSocial}
+              options={constants.INSCR_SOCIAL_OPTIONS}
               setValue={indInscEstadual =>
                 setEditEntity({
                   ...editEntity,
@@ -314,7 +294,7 @@ const CreateAccountForm: React.FC<CreateAccountForm> = props => {
             flex={1}
             label="Indicação de Inscrição Social"
             value={editEntity.indInscEstadual}
-            options={indInscrSocial}
+            options={constants.INSCR_SOCIAL_OPTIONS}
             setValue={indInscEstadual =>
               setEditEntity({
                 ...editEntity,

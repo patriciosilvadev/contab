@@ -1,25 +1,25 @@
 import React from 'react'
 import Search from '../search'
 import Button from '../inputs/button'
-import { Flex } from '@chakra-ui/core'
+import { Flex, PseudoBoxProps } from '@chakra-ui/core'
 
-interface ListSearchProps {
+interface ListSearchProps extends PseudoBoxProps {
   context(): any
   onNewOpen?(): void
 }
 
 const ListSearch: React.FC<ListSearchProps> = props => {
-  const { context, onNewOpen } = props
+  const { context, onNewOpen, ...rest } = props
   const { search, setSearch } = context()
 
   return (
-    <Flex>
+    <Flex {...rest}>
       {onNewOpen && (
         <Button width="200px" marginRight="auto" onClick={onNewOpen}>
           Criar novo
         </Button>
       )}
-      <Flex width="50%">
+      <Flex width={onNewOpen ? '50%' : '100%'}>
         <Search
           search={search}
           setSearch={setSearch}

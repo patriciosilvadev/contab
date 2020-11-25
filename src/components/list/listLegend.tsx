@@ -9,10 +9,11 @@ interface ListLegendProps {
   actions: ActionListProps[]
   entityName: string
   filteredList: any[]
+  hasCheck?: boolean
 }
 
 const ListLegend: React.FC<ListLegendProps> = props => {
-  const { entityName, actions, filteredList, context } = props
+  const { entityName, actions, filteredList, context, hasCheck } = props
   const { numberOfSelected, itemsPerPage, setItemsPerPage, setPage } = context()
 
   /**
@@ -43,17 +44,19 @@ const ListLegend: React.FC<ListLegendProps> = props => {
 
   return (
     <Flex alignItems="center" height="30px" marginBottom="15px">
-      <Text flex={1} fontSize={12} color="gray.600">
-        <b>{numberOfSelected}</b> {entityName.toLowerCase()}(s) selecionado(s)
-        {actions.map(action => (
-          <ActionList
-            key={action.label}
-            label={action.label}
-            handle={action.handle}
-            disabled={numberOfSelected === 0}
-          />
-        ))}
-      </Text>
+      {hasCheck && (
+        <Text flex={1} fontSize={12} color="gray.600">
+          <b>{numberOfSelected}</b> {entityName.toLowerCase()}(s) selecionado(s)
+          {actions.map(action => (
+            <ActionList
+              key={action.label}
+              label={action.label}
+              handle={action.handle}
+              disabled={numberOfSelected === 0}
+            />
+          ))}
+        </Text>
+      )}
       <Flex flex={1} alignItems="center" justifyContent="flex-end">
         <Text marginRight="10px" fontSize={12}>
           Registros por página:

@@ -25,6 +25,8 @@ export interface Product {
   origin?: number
   unitType?: string
   ncm?: string
+  csosn?: string
+  cfop?: string
   cest?: string
   netWeight?: string
   grossWeight?: string

@@ -1,49 +1,22 @@
-import { Flex } from '@chakra-ui/core'
 import React from 'react'
+import constants from '../../config/constants'
+import { Flex, Checkbox } from '@chakra-ui/core'
 import Input from '../../components/inputs/input'
-import Select from '../../components/inputs/select/select'
+import InputLabel from '../../components/labelIcon'
 import { useSales } from '../../hooks/salesContext'
+import Select from '../../components/inputs/select/select'
 
 const SalesFinishForm: React.FC = () => {
   const {
     payType,
     payCard,
+    printNf,
+    setPrintNf,
     setPayCard,
     setPayType,
     payCondition,
     setPayCondition
   } = useSales()
-
-  const discountTypes = [
-    { value: 'CASH', label: 'Dinheiro' },
-    { value: 'CHECK', label: 'Cheque' },
-    { value: 'CREDIT_CARD', label: 'Cartão crédito' },
-    { value: 'DEBIT_CARD', label: 'Cartão débito' },
-    { value: 'STORE_CREDIT', label: 'Crédito da loja' },
-    { value: 'FOOD_VOUCHER', label: 'Vale alimentação' },
-    { value: 'MEAL_VOUCHER', label: 'Vale refeição' },
-    { value: 'GIFT_VOUCHER', label: 'Vale presente' },
-    { value: 'FUEL_VOUCHER', label: 'Vale combustível' },
-    { value: 'OTHER', label: 'Outros' }
-  ]
-
-  const credentials = [
-    { value: 'INTER', label: 'Banco Inter' },
-    { value: 'CIELO', label: 'Cielo' },
-    { value: 'GETNET', label: 'GetNet' },
-    { value: 'LISTO', label: 'Listo' },
-    { value: 'PGSEGURO', label: 'PagSeguro' },
-    { value: 'REDECARD', label: 'Redecard' },
-    { value: 'STONE', label: 'Stone' }
-  ]
-
-  const bands = [
-    { value: 'MASTER', label: 'Mastercard' },
-    { value: 'VISA', label: 'Visa' },
-    { value: 'SOROCRED', label: 'Sorocred' },
-    { value: 'AMERICAN', label: 'American Express' },
-    { value: 'OTHER', label: 'Outros' }
-  ]
 
   const getConditionOptions = () => {
     const condistions = [{ value: 'IN_CASH', label: 'À vista' }]
@@ -63,10 +36,10 @@ const SalesFinishForm: React.FC = () => {
     <Flex direction="column">
       <Select
         flex={1}
-        marginTop="10px"
         value={payType}
-        options={discountTypes}
+        marginTop="10px"
         label="Forma de pagamento"
+        options={constants.PAY_TYPES}
         setValue={option => setPayType(option.value)}
       />
 
@@ -74,8 +47,8 @@ const SalesFinishForm: React.FC = () => {
         flex={1}
         marginTop="10px"
         value={payCondition}
-        options={getConditionOptions()}
         label="Condição de pagamento"
+        options={getConditionOptions()}
         setValue={option => setPayCondition(option.value)}
       />
 
@@ -84,9 +57,9 @@ const SalesFinishForm: React.FC = () => {
           <Select
             flex={1}
             marginTop="10px"
-            value={payCard.credential}
-            options={credentials}
             label="Credenciadora"
+            value={payCard.credential}
+            options={constants.CREDENTIALS}
             setValue={option =>
               setPayCard({ ...payCard, credential: option.value })
             }
@@ -96,21 +69,34 @@ const SalesFinishForm: React.FC = () => {
             flex={1}
             marginTop="10px"
             value={payCard.band}
-            options={bands}
+            options={constants.BANDS}
             label="Bandeira do cartão"
             setValue={option => setPayCard({ ...payCard, band: option.value })}
           />
 
-          <Input
+          <InputLabel
             label="Código da transação"
-            placeholder="Digite o código da transação (NSU)"
-            value={payCard.transaction}
-            onChange={e =>
-              setPayCard({ ...payCard, transaction: e.target.value })
-            }
-          />
+            tooltip="O código da transação (NSU) pode ser encontrado
+                no comprovante emitido pela máquina de sua credenciadora"
+          >
+            <Input
+              placeholder="Digite o código da transação (NSU)"
+              value={payCard.transaction}
+              onChange={e =>
+                setPayCard({ ...payCard, transaction: e.target.value })
+              }
+            />
+          </InputLabel>
         </>
       )}
+
+      <Checkbox
+        isChecked={printNf}
+        variantColor="green"
+        onChange={e => setPrintNf(e.target.checked)}
+      >
+        Emitir Cupom Fiscal (NFC-e)
+      </Checkbox>
     </Flex>
   )
 }

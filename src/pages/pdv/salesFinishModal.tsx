@@ -17,6 +17,7 @@ const SalesFinishModal: React.FC<SalesFinishModalProps> = props => {
     client,
     payType,
     payCard,
+    printNf,
     payCondition,
     salesProducts,
     discountValor,
@@ -34,6 +35,7 @@ const SalesFinishModal: React.FC<SalesFinishModalProps> = props => {
     setLoading(true)
 
     const payload = {
+      printNF: printNf,
       clientId: client?.id,
       discount: discountValor,
       products: salesProducts,
@@ -46,8 +48,6 @@ const SalesFinishModal: React.FC<SalesFinishModalProps> = props => {
     }
 
     const { data } = await salesService.create(payload)
-
-    console.log(data)
 
     toast({
       status: data.error ? 'error' : 'success',

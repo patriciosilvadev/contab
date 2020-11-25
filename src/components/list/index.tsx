@@ -32,8 +32,9 @@ const List: React.FC<ListProps> = props => {
       <ListLegend
         context={context}
         actions={actions}
-        entityName={entityName}
         filteredList={list}
+        hasCheck={hasCheck}
+        entityName={entityName}
       />
 
       <ListTable>
@@ -58,7 +59,7 @@ const List: React.FC<ListProps> = props => {
           {!hasItemToShow && (
             <tr>
               <td colSpan={7} style={{ textAlign: 'center', padding: '20px' }}>
-                Nenhum {entityName} foi encontrado
+                Nenhum registro encontrado
               </td>
             </tr>
           )}

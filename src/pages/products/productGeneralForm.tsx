@@ -52,18 +52,15 @@ const ProductGeneralForm: React.FC<ProductFormProps> = props => {
         />
         <Input
           flex={1}
+          mr="20px"
           type="number"
           isDisabled={loading}
           value={product.cost}
           label="Custo médio"
           onChange={e => setProduct({ ...product, cost: e.target.value })}
         />
-      </Flex>
-
-      <Flex direction="row">
         <Input
           flex={1}
-          mr="25px"
           type="number"
           isDisabled={loading}
           value={product.stokAvailable}
@@ -71,23 +68,6 @@ const ProductGeneralForm: React.FC<ProductFormProps> = props => {
           onChange={e =>
             setProduct({ ...product, stokAvailable: e.target.value })
           }
-        />
-        <Input
-          flex={1}
-          mr="25px"
-          type="number"
-          isDisabled={loading}
-          value={product.stokMin}
-          label="Estoque mínimo"
-          onChange={e => setProduct({ ...product, stokMin: e.target.value })}
-        />
-        <Input
-          flex={1}
-          type="number"
-          isDisabled={loading}
-          value={product.stokMax}
-          label="Estoque máximo"
-          onChange={e => setProduct({ ...product, stokMax: e.target.value })}
         />
       </Flex>
 

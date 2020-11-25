@@ -34,7 +34,13 @@ const EntityProvider: React.FC<EntityProviderProps> = props => {
   const [search, setSearch] = useState<string>('')
   const [order, setOrder] = useState<string>(constants.DEFAULT_ORDER)
   const [orderAsc, setOrderAsc] = useState<boolean>(true)
-  const [filter, setFilter] = useState<string>(constants.FILTER_ALL)
+
+  const defaultFilter =
+    type === 'Venda'
+      ? [{ field: 'createdAt', value: new Date() }]
+      : [{ field: 'active', value: constants.FILTER_ALL }]
+
+  const [filters, setFilters] = useState<any[]>(defaultFilter)
 
   /**
    * Whatch params to load filter list
@@ -42,7 +48,7 @@ const EntityProvider: React.FC<EntityProviderProps> = props => {
 
   useEffect(() => {
     loadList()
-  }, [filter, order, search, orderAsc, page, itemsPerPage])
+  }, [filters, order, search, orderAsc, page, itemsPerPage])
 
   /**
    * Actions
@@ -57,7 +63,7 @@ const EntityProvider: React.FC<EntityProviderProps> = props => {
       order: order,
       orderAsc: orderAsc,
       search: search,
-      filters: [{ field: 'active', value: filter }]
+      filters: filters
     }
     const { data } = await service.findAll(params)
 
@@ -101,8 +107,8 @@ const EntityProvider: React.FC<EntityProviderProps> = props => {
         setLoading,
         search,
         setSearch,
-        filter,
-        setFilter,
+        filters,
+        setFilters,
         order,
         setOrder,
         orderAsc,

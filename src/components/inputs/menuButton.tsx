@@ -13,6 +13,7 @@ import theme from '../../styles/theme'
 
 interface CustomMenuOption {
   value: string
+  color?: string
   handle: (item?: any) => void
 }
 
@@ -78,7 +79,11 @@ const CustomMenuButton: React.FC<CustomMenuButton> = props => {
         <MenuList>
           {options &&
             options.map((option, key) => (
-              <MenuItem key={key} onClick={() => option.handle(item)}>
+              <MenuItem
+                key={key}
+                onClick={() => option.handle(item)}
+                color={option.color}
+              >
                 {getValue(option.value)}
               </MenuItem>
             ))}

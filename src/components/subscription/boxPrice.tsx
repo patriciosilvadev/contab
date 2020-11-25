@@ -15,9 +15,7 @@ interface BoxPriceProps {
   priceDecimal: string
   details: {
     users: number
-    nfproduct: number
-    nfservice: number
-    nfce: number
+    countNfs: number
   }
   obs?: string
   buttonText?: string
@@ -131,12 +129,9 @@ const BoxPrice: React.FC<BoxPriceProps> = props => {
 
       <Box alignSelf="start" marginTop={!action ? '20px' : ''}>
         <PriceDetails value={props.details.users} text="usuário" />
-        <PriceDetails value={props.details.nfproduct} text="NF de Produto" />
-        <PriceDetails value={props.details.nfservice} text="NF de Serviço" />
         <PriceDetails
-          value={props.details.nfce}
-          text="NFC-e"
-          tooltip="Somente para simples nacional."
+          value={props.details.countNfs}
+          text="Notas entre NF-e, NFC-e"
         />
 
         {props.obs && (

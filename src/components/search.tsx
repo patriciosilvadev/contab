@@ -22,6 +22,7 @@ const Search: React.FC<SearchProps> = props => {
         flex="1"
         paddingLeft="40px"
         value={search}
+        marginBottom={0}
         placeholder={rest.placeholder || 'Procurar'}
         onChange={e => setSearch(e.target.value)}
         {...rest}

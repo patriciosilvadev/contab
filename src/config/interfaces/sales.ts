@@ -24,6 +24,8 @@ export interface SalesContextProps {
   setPayCondition(payCondition: string): void
   payCard: CardProps
   setPayCard(payCard: CardProps): void
+  printNf: boolean
+  setPrintNf(printNf: boolean): void
   resetSales(): void
 }
 

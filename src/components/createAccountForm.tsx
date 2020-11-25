@@ -6,8 +6,8 @@ import Link from './inputs/link'
 import Input from './inputs/input'
 import Button from './inputs/button'
 import Select from './inputs/select'
-import { FormValidation } from '../config/interfaces'
 import userService from '../services/userService'
+import { FormValidation } from '../config/interfaces'
 
 interface CreateAccountFormProps {
   onSubmit(): void
@@ -20,14 +20,14 @@ const CreateAccountForm: React.FC<CreateAccountFormProps> = () => {
 
   const [name, setName] = useState<string>('Ricardo Paz')
   const [email, setEmail] = useState<string>('ricardopdsf@gmail.com')
-  const [cellphone, setCellphone] = useState<string>('81998778051')
+  const [celphone, setCelphone] = useState<string>('81998778051')
   const [password, setPassword] = useState<string>('1234')
   const [role, setRole] = useState<string>('mei')
 
   const [validation, setValidation] = useState<FormValidation>({
     nameIsValid: true,
     emailIsValid: true,
-    cellphoneIsValid: true,
+    celphoneIsValid: true,
     passwordIsValid: true,
     roleIsValid: true
   })
@@ -35,7 +35,7 @@ const CreateAccountForm: React.FC<CreateAccountFormProps> = () => {
   async function submitSignUp() {
     setLoading(true)
 
-    const payload = { name, email, password, cellphone, role }
+    const payload = { name, email, password, celphone, role }
     const { isValid, newValidation } = userService.isValidatedForm(payload)
 
     setValidation(newValidation)
@@ -71,12 +71,12 @@ const CreateAccountForm: React.FC<CreateAccountFormProps> = () => {
       />
       <Input
         label="Celular"
-        value={cellphone}
+        value={celphone}
         type="text"
         isRequired={true}
         isDisabled={loading}
-        isInvalid={!validation.cellphoneIsValid}
-        onChange={e => setCellphone(e.target.value)}
+        isInvalid={!validation.celphoneIsValid}
+        onChange={e => setCelphone(e.target.value)}
         invalidMessage="Número de celular inválido"
       />
       <Input

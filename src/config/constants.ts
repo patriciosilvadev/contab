@@ -44,6 +44,52 @@ export default {
   DEFAULT_ORDER: 'id',
   DEFAULT_HEADERS: [{ field: 'name', displayName: 'Nome' }],
 
+  PERSON_TYPES: [
+    { value: 'PF', label: 'Física' },
+    { value: 'PJ', label: 'Jurídica' }
+  ],
+
+  INSCR_SOCIAL_OPTIONS: [
+    { value: 'Y', label: 'Contribuinte' },
+    { value: 'N', label: 'Não contribuinte' },
+    { value: 'Y', label: 'Contribuinte isento' }
+  ],
+
+  PAY_TYPES: [
+    { value: 'CASH', label: 'Dinheiro' },
+    { value: 'CHECK', label: 'Cheque' },
+    { value: 'CREDIT_CARD', label: 'Cartão crédito' },
+    { value: 'DEBIT_CARD', label: 'Cartão débito' },
+    { value: 'STORE_CREDIT', label: 'Crédito da loja' },
+    { value: 'FOOD_VOUCHER', label: 'Vale alimentação' },
+    { value: 'MEAL_VOUCHER', label: 'Vale refeição' },
+    { value: 'GIFT_VOUCHER', label: 'Vale presente' },
+    { value: 'FUEL_VOUCHER', label: 'Vale combustível' },
+    { value: 'OTHER', label: 'Outros' }
+  ],
+
+  PAY_CONDITIONS: {
+    IN_CASH: 'À vista'
+  },
+
+  CREDENTIALS: [
+    { value: 'INTER', label: 'Banco Inter' },
+    { value: 'CIELO', label: 'Cielo' },
+    { value: 'GETNET', label: 'GetNet' },
+    { value: 'LISTO', label: 'Listo' },
+    { value: 'PGSEGURO', label: 'PagSeguro' },
+    { value: 'REDECARD', label: 'Redecard' },
+    { value: 'STONE', label: 'Stone' }
+  ],
+
+  BANDS: [
+    { value: 'MASTER', label: 'Mastercard' },
+    { value: 'VISA', label: 'Visa' },
+    { value: 'SOROCRED', label: 'Sorocred' },
+    { value: 'AMERICAN', label: 'American Express' },
+    { value: 'OTHER', label: 'Outros' }
+  ],
+
   UNIT_LIST: [
     { value: 'RL', label: 'RL' },
     { value: 'UNI', label: 'UNI' },
@@ -57,6 +103,7 @@ export default {
     { value: 'Quantidade', label: 'Quantidade' },
     { value: 'Kilograma', label: 'Kilograma' }
   ],
+
   PRODUCT_ORIGIN_LIST: [
     { value: 0, label: '0 - Nacional' },
     { value: 1, label: '1 - Nacional' },

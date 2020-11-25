@@ -10,7 +10,7 @@ interface FilterButtonProps {
 }
 
 const FilterButtons: React.FC<FilterButtonProps> = ({ name }) => {
-  const { countAll, countActive, filter, setFilter } = useEntity()
+  const { countAll, countActive, filters, setFilters } = useEntity()
 
   /**
    * Component
@@ -29,22 +29,28 @@ const FilterButtons: React.FC<FilterButtonProps> = ({ name }) => {
         title={`Todos ${name.toLowerCase()}`}
         value={countAll}
         color="blue.400"
-        active={filter === constants.FILTER_ALL}
-        onClick={() => setFilter(constants.FILTER_ALL)}
+        active={filters[0].value === constants.FILTER_ALL}
+        onClick={() =>
+          setFilters([{ field: 'active', value: constants.FILTER_ALL }])
+        }
       />
       <FilterButton
         title="Ativos"
         value={countActive}
         color="green.400"
-        active={filter === constants.FILTER_ACTIVE}
-        onClick={() => setFilter(constants.FILTER_ACTIVE)}
+        active={filters[0].value === constants.FILTER_ACTIVE}
+        onClick={() =>
+          setFilters([{ field: 'active', value: constants.FILTER_ACTIVE }])
+        }
       />
       <FilterButton
         title="Inativos"
         value={countAll - countActive}
         color="yellow.400"
-        active={filter === constants.FILTER_INACTIVE}
-        onClick={() => setFilter(constants.FILTER_INACTIVE)}
+        active={filters[0].value === constants.FILTER_INACTIVE}
+        onClick={() =>
+          setFilters([{ field: 'active', value: constants.FILTER_INACTIVE }])
+        }
       />
     </Flex>
   )

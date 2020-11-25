@@ -37,6 +37,8 @@ const SalesProvider: React.FC<SalesProviderProps> = props => {
     transaction: ''
   })
 
+  const [printNf, setPrintNf] = useState<boolean>(true)
+
   /**
    * Watchers
    */
@@ -103,6 +105,8 @@ const SalesProvider: React.FC<SalesProviderProps> = props => {
         setPayCondition,
         payCard,
         setPayCard,
+        printNf,
+        setPrintNf,
         resetSales
       }}
     >

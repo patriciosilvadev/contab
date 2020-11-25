@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import {
   Text,
   Box,
@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/core'
 
 interface InputCustomProps extends ChakraInputProps {
-  label?: string
+  label?: string | ReactElement
   invalidMessage?: string
 }
 
@@ -27,16 +27,17 @@ const Input: React.FC<InputCustomProps> = props => {
         </Text>
       )}
       <ChakraInput
-        _placeholder={{ color: 'gray.300' }}
         height="50px"
-        marginBottom={!invalidMessage ? '25px' : ''}
-        borderColor="gray.300"
-        focusBorderColor="green.100"
         borderRadius="sm"
+        focusBorderColor="green.100"
+        _placeholder={{ color: 'gray.300' }}
+        marginBottom={!invalidMessage ? '25px' : ''}
+        borderColor={isInvalid ? 'red.400' : 'gray.300'}
+        _hover={{ borderColor: isInvalid ? 'red.400' : 'gray.300' }}
         {...rest}
       />
       {invalidMessage && (
-        <Text height="20px" marginTop="5px" fontSize={12} color="red.600">
+        <Text height="20px" marginTop="5px" fontSize={12} color="red.400">
           {isInvalid ? invalidMessage : ''}
         </Text>
       )}

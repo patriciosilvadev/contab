@@ -6,12 +6,15 @@ export const getCustomStyles = props => {
   return {
     container: provided => ({
       ...provided,
-      zIndex: 3,
       ':focus': {
         borderColor: theme.colors.green[100],
         outline: 'none',
         boxShadow: 'none'
       }
+    }),
+    menu: provided => ({
+      ...provided,
+      zIndex: 4
     }),
     control: (provided, state) => ({
       ...provided,

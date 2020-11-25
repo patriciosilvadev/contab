@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { Flex, Text, Box } from '@chakra-ui/core'
-import { ProtectRoute } from '../hooks/authContext'
-import { BsQuestionCircle } from 'react-icons/bs'
-
 import Content from '../components/content'
-import BoxPrice from '../components/subscription/boxPrice'
-import SubscriptionForm from '../components/subscription'
-import PlanDetails from '../components/planDetails'
 import Section from '../components/section'
-import SetPlan, { Plan, plans } from '../components/subscription/setPlan'
 import Link from '../components/inputs/link'
+import { Flex, Text, Box } from '@chakra-ui/core'
+import { BsQuestionCircle } from 'react-icons/bs'
+import React, { useEffect, useState } from 'react'
+import { ProtectRoute } from '../hooks/authContext'
+import SubscriptionForm from '../components/subscription'
+import BoxPrice from '../components/subscription/boxPrice'
+import { Plan, plans } from '../components/subscription/setPlan'
 
 const Subscription: React.FC = () => {
-  const [plan, setPlan] = useState<Plan>()
+  const [plan, setPlan] = useState<Plan>(plans.PLAN_BASIC)
 
   useEffect(() => {
     const { planSelected } = localStorage
@@ -62,38 +60,29 @@ const Subscription: React.FC = () => {
     )
   }
 
-  const InnerSubscription: React.FC = () => {
-    if (!plan) {
-      return <SetPlan action={planSelected => setPlan(planSelected)} />
-    } else {
-      return (
-        <Section direction="column" width="100%" minHeight="200px">
-          <Flex>
-            <BoxPrice
-              first={true}
-              last={true}
-              title={plan.title}
-              description={plan.description}
-              oldPrice={plan.oldPrice}
-              price={plan.price}
-              priceDecimal={plan.priceDecimal}
-              details={plan.details}
-              buttonText="Trocar Plano"
-              action={() => setPlan(null)}
-              obs={plan.obs}
-            />
-            <SubscriptionForm plan={plan} />
-          </Flex>
-        </Section>
-      )
-    }
-  }
+  const InnerSubscription: React.FC = () => (
+    <Section direction="column" width="100%" minHeight="200px">
+      <Flex>
+        <BoxPrice
+          last={true}
+          first={true}
+          obs={plan.obs}
+          title={plan.title}
+          price={plan.price}
+          details={plan.details}
+          oldPrice={plan.oldPrice}
+          description={plan.description}
+          priceDecimal={plan.priceDecimal}
+        />
+        <SubscriptionForm plan={plan} />
+      </Flex>
+    </Section>
+  )
 
   return (
     <Content title="SympleCont">
       <TopSubscriptionInfo />
       <InnerSubscription />
-      <PlanDetails />
     </Content>
   )
 }

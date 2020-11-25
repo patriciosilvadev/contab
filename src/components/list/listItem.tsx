@@ -67,8 +67,8 @@ const ListItem: React.FC<ListItemProps> = props => {
           }
         }
 
-        const key = header.field || objectProp + property
-        header.field = header.field || property || subProperty
+        const key = item.id + '_' + (header.field || objectProp + property)
+        const field = header.field || property || subProperty
 
         const getDataFormat = (data: any, format: string) => {
           if (data) {
@@ -88,7 +88,7 @@ const ListItem: React.FC<ListItemProps> = props => {
           }
         }
 
-        switch (header.field) {
+        switch (field) {
           case 'active':
             return (
               <TD key={key}>

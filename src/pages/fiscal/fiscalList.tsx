@@ -1,15 +1,8 @@
 import React from 'react'
 import List from '../../components/list'
-import { useToast } from '@chakra-ui/core'
 import { useFiscal } from '../../hooks/fiscalContext'
 
 const FiscalList: React.FC = () => {
-  const toast = useToast()
-
-  /**
-   * Actions
-   */
-
   /**
    * Properties
    */
@@ -39,6 +32,7 @@ const FiscalList: React.FC = () => {
   return (
     <List
       entityName="NF"
+      hasCheck={false}
       headers={headers}
       context={useFiscal}
       itemOptions={options}

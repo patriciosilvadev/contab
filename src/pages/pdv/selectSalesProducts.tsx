@@ -104,6 +104,17 @@ const SelectSalesProducts: React.FC = () => {
     </Flex>
   )
 
+  const EmptyList: React.FC = () => {
+    return (
+      <ScrollContent justifyContent="center" alignItems="center">
+        <Text marginBottom="10px" fontSize={30} color="yellow.400">
+          <RiEmotionSadLine />
+        </Text>
+        <Text color="gray.400">Nenhum item encontrado</Text>
+      </ScrollContent>
+    )
+  }
+
   /**
    * Component
    */
@@ -194,14 +205,8 @@ const SelectSalesProducts: React.FC = () => {
           </ScrollContent>
         )}
 
-        {showProducts && filteredProducts.length === 0 && (
-          <ScrollContent justifyContent="center" alignItems="center">
-            <Text marginBottom="10px" fontSize={30} color="yellow.400">
-              <RiEmotionSadLine />
-            </Text>
-            <Text color="gray.400">Nenhum produto encontrado</Text>
-          </ScrollContent>
-        )}
+        {showProducts && filteredProducts.length === 0 && <EmptyList />}
+        {!showProducts && categories.length === 0 && <EmptyList />}
       </Flex>
     </CardInfo>
   )

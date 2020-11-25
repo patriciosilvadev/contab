@@ -37,7 +37,11 @@ const ProductIndex: React.FC = () => {
         <PageTitle>Cadastro de Produtos</PageTitle>
 
         <Flex direction="column" marginTop="25px">
-          <ListSearch context={useEntity} onNewOpen={onNewOpen} />
+          <ListSearch
+            context={useEntity}
+            onNewOpen={onNewOpen}
+            marginBottom="15px"
+          />
           <ProductList setEditMode={setEditMode} />
         </Flex>
       </Content>

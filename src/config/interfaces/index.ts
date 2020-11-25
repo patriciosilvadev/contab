@@ -6,10 +6,28 @@ import { Plan } from '../../components/subscription/setPlan'
 export interface User {
   name: string
   email: string
-  cellphone?: string
   password?: string
-  customerId: string
+  customerId?: string
   plan?: string
+  type?: string
+  cnpj?: string
+  cpf?: string
+  rg?: string
+  razaoSocial?: string
+  indInscEstadual?: string
+  inscEstadual?: string
+  inscMunicipal?: string
+  inscSuframa?: string
+  simples?: boolean
+  phone?: string
+  celphone?: string
+  birthday?: Date
+  address?: Address
+  role?: string
+  certificateName?: string
+  certificatePass?: string
+  certificateExpirate?: Date
+  certificate?: string | ArrayBuffer
 }
 
 export interface MainAppProps extends AppProps {
@@ -37,9 +55,15 @@ export interface AuthProviderProps {
 export interface FormValidation {
   nameIsValid?: boolean
   emailIsValid?: boolean
-  cellphoneIsValid?: boolean
+  celphoneIsValid?: boolean
   passwordIsValid?: boolean
   roleIsValid?: boolean
+  cnpjIsValid?: boolean
+  razaoIsValid?: boolean
+  addressCepIsValid?: boolean
+  addressStateIsValid?: boolean
+  addressCityIsValid?: boolean
+  certificatePassIsValid?: boolean
 }
 
 /**

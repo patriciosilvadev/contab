@@ -12,7 +12,7 @@ export interface Plan {
   oldPrice: string
   price: string
   priceDecimal: string
-  details: { users: number; nfproduct: number; nfservice: number; nfce: number }
+  details: { users: number; countNfs: number }
   obs: string
 }
 
@@ -27,12 +27,14 @@ export const plans = {
       priceId: constants[`PLAN${usePrefix}_BASIC_PRICE_ID`]
     },
     title: 'Básico',
-    description: 'Tenha o controle e emissões necessárias para o seu negócio.',
-    oldPrice: '119,90',
-    price: '79',
+    description:
+      'Emitir notas fiscais nunca foi tão simples. ' +
+      'Aproveite e comece hoje mesmo!',
+    oldPrice: '129,90',
+    price: '99',
     priceDecimal: '90',
-    details: { users: 1, nfproduct: 10, nfservice: 10, nfce: 10 },
-    obs: 'Plano extremamente eficiente para pequenos negócios.'
+    details: { users: 1, countNfs: 40 },
+    obs: 'Plano extremamente eficiente para o seu negócios.'
   },
   PLAN_CONTROL: {
     id: 'PLAN_CONTROL',
@@ -46,7 +48,7 @@ export const plans = {
     oldPrice: '159,90',
     price: '99',
     priceDecimal: '90',
-    details: { users: 1, nfproduct: 30, nfservice: 30, nfce: 30 },
+    details: { users: 1, countNfs: 100 },
     obs: 'Sua empresa começa a pegar voo, de o suporte necessário a ela.'
   },
   PLAN_ADVANCED: {
@@ -61,7 +63,7 @@ export const plans = {
     oldPrice: '199,90',
     price: '135',
     priceDecimal: '90',
-    details: { users: 2, nfproduct: 100, nfservice: 100, nfce: 100 },
+    details: { users: 2, countNfs: 300 },
     obs: 'Maior responsabilidade demanda de um controle maior ainda.'
   }
 }
@@ -85,45 +87,27 @@ const SetPlan: React.FC<PlansProps> = props => {
           fontWeight="normal"
           color={textColor || 'green.600'}
         >
-          Escolha o plano perfeito para sua necessidade!
+          Adquira já o seu plano e controle o seu negócio de forma simples!
         </Text>
       </Section>
 
-      <Section backgroundColor="transparent">
-        <BoxPrice
-          first={true}
-          title="Básico"
-          description="Tenha o controle e emissões necessárias para o seu negócio."
-          oldPrice="119,90"
-          price="79"
-          priceDecimal="90"
-          details={{ users: 1, nfproduct: 10, nfservice: 10, nfce: 10 }}
-          obs="Plano extremamente eficiente para pequenos negócios."
-          buttonText={btnText}
-          action={() => action(plans.PLAN_BASIC)}
-        />
-        <BoxPrice
-          title="Controle"
-          description="Aumente o número de emissões de notas fiscais do seu negócio."
-          oldPrice="159,90"
-          price="99"
-          priceDecimal="90"
-          details={{ users: 1, nfproduct: 30, nfservice: 30, nfce: 30 }}
-          obs="Sua empresa começa a pegar voo, de o suporte necessário a ela."
-          buttonText={btnText}
-          action={() => action(plans.PLAN_CONTROL)}
-        />
+      <Section
+        backgroundColor="transparent"
+        alignItems="center"
+        justifyContent="center"
+      >
         <BoxPrice
           last={true}
-          title="Avançado"
-          description="O céu é o limite, a quantidade de emissões aumenta de acordo com sua necessidade, para mais notas procure nosso plano Personalizado."
-          oldPrice="199,90"
-          price="135"
-          priceDecimal="90"
-          details={{ users: 2, nfproduct: 100, nfservice: 100, nfce: 100 }}
-          obs="Maior responsabilidade demanda de um controle maior ainda."
+          first={true}
           buttonText={btnText}
-          action={() => action(plans.PLAN_ADVANCED)}
+          obs={plans.PLAN_BASIC.obs}
+          title={plans.PLAN_BASIC.title}
+          price={plans.PLAN_BASIC.price}
+          details={plans.PLAN_BASIC.details}
+          oldPrice={plans.PLAN_BASIC.oldPrice}
+          action={() => action(plans.PLAN_BASIC)}
+          description={plans.PLAN_BASIC.description}
+          priceDecimal={plans.PLAN_BASIC.priceDecimal}
         />
       </Section>
     </>

@@ -1,29 +1,30 @@
-import React, { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { useAuth } from '../hooks/authContext'
-
-import { Grid, Flex, Image, Text, useToast } from '@chakra-ui/core'
-import Divider from '../components/divider'
-import Input from '../components/inputs/input'
-import Link from '../components/inputs/link'
-import Button from '../components/inputs/button'
 import Head from 'next/head'
-
+import { useRouter } from 'next/router'
 import Loading from '../components/loading'
-
+import Divider from '../components/divider'
 import logoImg from '../assets/logo-name.png'
+import { useAuth } from '../hooks/authContext'
+import Input from '../components/inputs/input'
+import Button from '../components/inputs/button'
+import React, { useState, useEffect } from 'react'
 import ForgotPassword from '../components/login/forgotPassword'
+import { Grid, Flex, Image, Text, useToast } from '@chakra-ui/core'
 
 const Login: React.FC = () => {
   const toast = useToast()
   const router = useRouter()
-  const { isAuthenticated, loading, signIn } = useAuth()
+  const { isAuthenticated, signIn } = useAuth()
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    if (isAuthenticated) router.push('/dashboard')
+    if (isAuthenticated) {
+      router.replace('/dashboard')
+    } else {
+      setLoading(false)
+    }
   }, [isAuthenticated])
 
   async function submitForm() {
@@ -56,7 +57,7 @@ const Login: React.FC = () => {
       as="main"
       height="100vh"
       templateColumns="1fr 480px 480px 1fr"
-      templateRows="1fr 480px 1fr"
+      templateRows="1fr 1fr 1fr"
       templateAreas="
                 '. . . .'
                 '. logo form .'
@@ -74,27 +75,29 @@ const Login: React.FC = () => {
       </Flex>
 
       <Flex
-        gridArea="form"
-        height="100%"
-        backgroundColor="gray.300"
-        borderRadius="md"
-        flexDir="column"
-        alignItems="stretch"
         padding={16}
+        height="100%"
+        gridArea="form"
+        flexDir="column"
+        borderRadius="md"
+        alignItems="stretch"
+        backgroundColor="gray.300"
       >
         <Input
-          height="50px"
-          placeholder="E-mail"
-          value={email}
+          mb={0}
           type="email"
+          height="60px"
+          value={email}
+          placeholder="E-mail"
           onChange={e => setEmail(e.target.value)}
         />
         <Input
-          height="50px"
-          placeholder="Senha"
+          mb={0}
+          height="60px"
           marginTop={2}
-          value={password}
           type="password"
+          value={password}
+          placeholder="Senha"
           onChange={e => setPassword(e.target.value)}
         />
 
@@ -107,12 +110,12 @@ const Login: React.FC = () => {
         <Divider />
 
         <Text textAlign="center" fontSize="sm" color="green.300">
-          Ainda não faz parte da equipe?
+          Que tal controlar melhor sua empresa?
         </Text>
 
         <Button
-          variation="secondary"
           marginTop={6}
+          variation="secondary"
           onClick={() => router.push('/#pricing')}
         >
           Adquira um plano!

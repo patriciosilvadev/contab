@@ -54,3 +54,21 @@ export interface PersonValidation {
   obsIsValid?: boolean
   addressesIsValid?: boolean
 }
+
+export interface FiscalPerson {
+  type?: string
+  cnpj?: string
+  cpf?: string
+  rg?: string
+  razaoSocial?: string
+  indInscEstadual?: string
+  inscEstadual?: string
+  inscMunicipal?: string
+  inscSuframa?: string
+  simples?: boolean
+  email?: string
+  phone?: string
+  celphone?: string
+  birthday?: Date
+  addresses?: Address[]
+}

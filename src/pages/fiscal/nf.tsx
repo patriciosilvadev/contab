@@ -22,7 +22,10 @@ const NFIndex: React.FC = () => {
         <PageTitle>NF&apos;s</PageTitle>
 
         <Flex direction="column" marginTop="25px">
-          <ListSearch context={useFiscal} />
+          <Flex>
+            <Flex flex={1} />
+            <ListSearch flex={1} context={useFiscal} />
+          </Flex>
           <FiscalFilter />
           <FiscalList />
         </Flex>
