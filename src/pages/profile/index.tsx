@@ -55,6 +55,7 @@ const Profile: React.FC = () => {
       if (status === 200 && data.updated) {
         const userUpdated = {
           ...editUser,
+          managerUserId: data.managerUserId,
           certificateExpirate: data.certificateExp
         }
 

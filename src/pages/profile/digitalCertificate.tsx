@@ -1,11 +1,10 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
-import { Flex, Text, Heading, Stack } from '@chakra-ui/core'
-import { FormValidation, User } from '../../config/interfaces'
-import ButtonOut from '../../components/inputs/buttonOut'
-import Input from '../../components/inputs/input'
-import InputPassword from '../../components/inputs/inputPassword'
 import Link from '../../components/inputs/link'
+import { Flex, Text, Heading } from '@chakra-ui/core'
+import ButtonOut from '../../components/inputs/buttonOut'
+import { FormValidation, User } from '../../config/interfaces'
+import InputPassword from '../../components/inputs/inputPassword'
 
 interface GenericInfoProps {
   editUser: User
@@ -34,7 +33,7 @@ const DigitalCertificateForm: React.FC<GenericInfoProps> = props => {
           certificateName: file.name
         })
       }
-      reader.readAsBinaryString(file)
+      reader.readAsDataURL(file)
     })
   }
 
