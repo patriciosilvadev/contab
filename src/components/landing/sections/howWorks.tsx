@@ -8,7 +8,7 @@ import { Flex, Text, Image, Heading } from '@chakra-ui/core'
 
 const HowWorks: React.FC = () => {
   return (
-    <Container position="relative" backgroundColor="gray.100">
+    <Container id="howworks" position="relative" backgroundColor="gray.100">
       <Image
         src={LogoGreenSb}
         size={300}

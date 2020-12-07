@@ -17,7 +17,9 @@ interface SocialLinkProps {
 const Footer: React.FC = () => {
   const SocialLink: React.FC<SocialLinkProps> = ({ color, link, children }) => {
     return (
-      <PseudoBox
+      <Link
+        href={link}
+        target="_blank"
         width="40px"
         height="40px"
         display="flex"
@@ -30,10 +32,11 @@ const Footer: React.FC = () => {
         transition="all 0.3s"
         backgroundColor="white"
         justifyContent="center"
+        _focus={{ outline: 'none' }}
         _hover={{ backgroundColor: 'green.100', color: 'white' }}
       >
         {children}
-      </PseudoBox>
+      </Link>
     )
   }
 
@@ -58,18 +61,29 @@ const Footer: React.FC = () => {
         </Flex>
         <Flex marginTop="20px">
           <Flex flex={1}>
-            <SocialLink color="purple.400">
+            <SocialLink
+              color="purple.400"
+              link="https://www.instagram.com/symplecont/"
+            >
               <AiOutlineInstagram />
             </SocialLink>
-            <SocialLink color="blue.400">
+            <SocialLink
+              color="blue.400"
+              link="https://www.facebook.com/symplecont"
+            >
               <AiFillFacebook />
             </SocialLink>
-            <SocialLink color="green.100">
+            <SocialLink
+              color="green.100"
+              link="https://api.whatsapp.com/send?phone=558184683158"
+            >
               <AiOutlineWhatsApp />
             </SocialLink>
           </Flex>
           <Flex flex={1} direction="column">
-            <Link>cliente@symplecont.com</Link>
+            <Link href="mailto:cliente@symplecont.com">
+              cliente@symplecont.com
+            </Link>
             <Text display="flex" alignItems="center" fontSize={12}>
               Feito por gente arretada que{' '}
               <Text as="span" color="red.300" marginX="2px">

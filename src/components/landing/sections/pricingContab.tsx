@@ -32,7 +32,7 @@ const PricingContab: React.FC = () => {
       <Box as="section" pos="relative">
         <StripesBg />
       </Box>
-      <PseudoBox paddingX="10%">
+      <PseudoBox paddingX="10%" id="plans">
         <SetContabPlan
           action={planSelected => subscriptionPlan(planSelected)}
           textColor="white"

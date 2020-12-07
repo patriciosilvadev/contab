@@ -14,7 +14,7 @@ import LinksToAquire from '../linksToAquire'
 
 const StepsToAquire: React.FC = () => {
   return (
-    <Container>
+    <Container id="steps">
       <Tabs
         isFitted
         variant="soft-rounded"

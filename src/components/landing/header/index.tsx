@@ -7,8 +7,7 @@ import constants from '../../../config/constants'
 
 const menuItems = [
   { label: 'Como Funciona?', link: '#howworks' },
-  { label: 'Recursos', link: '#resources' },
-  { label: 'Soluções', link: '#solutions' },
+  { label: 'Passo a Passo', link: '#steps' },
   { label: 'Planos', link: '#plans' }
 ]
 
