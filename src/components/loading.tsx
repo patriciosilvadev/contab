@@ -49,7 +49,7 @@ const Lading: React.FC<LoadingProps> = props => {
           scale: [1, 2, 2, 1, 1],
           rotate: [0, 0, 270, 270, 0]
         }}
-        transition={{ repeat: Infinity, duration: 2 }}
+        transition={{ repeat: Infinity, duration: 2 } as any}
       />
     </MotionFlex>
   )

@@ -5,7 +5,7 @@ import ButtonOut from '../../inputs/buttonOut'
 import constants from '../../../config/constants'
 import HomeImage from '../../../assets/home1.png'
 import Typing, { Backspace } from 'react-typing-animation'
-import { Flex, PseudoBox, Text, Image, Icon } from '@chakra-ui/core'
+import { Flex, PseudoBox, Text, Image } from '@chakra-ui/core'
 import TextCheck from '../textCheck'
 
 const Presentantion: React.FC = () => {
