@@ -5,37 +5,26 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p $PORT"
   },
   "dependencies": {
     "@chakra-ui/core": "^0.8.0",
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
-    "@stripe/react-stripe-js": "^1.1.2",
-    "@stripe/stripe-js": "^1.9.0",
-    "@types/react-dropzone": "^5.1.0",
-    "axios": "^0.20.0",
     "babel-runtime": "^6.26.0",
-    "cep-promise": "^4.0.2",
-    "chart.js": "^2.9.3",
     "emotion-theming": "^10.0.27",
     "framer-motion": "^2.6.13",
     "next": "9.5.2",
     "next-images": "^1.4.1",
-    "nookies": "^2.4.0",
     "react": "16.13.1",
-    "react-chartjs-2": "^2.10.0",
     "react-dom": "16.13.1",
-    "react-dropzone": "^11.2.4",
     "react-icons": "^3.11.0",
-    "react-paginate": "^6.5.0",
     "react-select": "^3.1.0",
     "react-typing-animation": "^1.6.2",
     "styled-components": "^5.2.0"
   },
   "devDependencies": {
     "@types/node": "^14.6.0",
-    "@types/nookies": "^2.0.3",
     "@types/react": "^16.9.46",
     "@types/react-icons": "^3.0.0",
     "@types/styled-components": "^5.1.2",
