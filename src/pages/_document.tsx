@@ -1,12 +1,11 @@
-import React from 'react'
 import Document, {
-  DocumentProps,
   Html,
   Head,
   Main,
-  NextScript
+  NextScript,
+  DocumentProps
 } from 'next/document'
-
+import React from 'react'
 import appIco from '../assets/icon.ico'
 
 class AppDocument extends Document<DocumentProps> {
@@ -21,7 +20,11 @@ class AppDocument extends Document<DocumentProps> {
           <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/gh/matheuscuba/icones-bancos-brasileiros@1.1/dist/all.css"
-          ></link>
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+          />
 
           <link rel="icon" href={appIco} />
         </Head>

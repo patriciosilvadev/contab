@@ -1,6 +1,25 @@
+const PHONE_WHATSAPP = '5581998778051'
+
 export default {
   API_STRIPE_TEST:
     'pk_test_51HPrCBAovamKBaC1fH8Lau08e554LGOfjCF72kAJT9DUHpQqUUZ5LWnxiXTFNQkhYZzAgyB6gzDbWGXs8sQRmpkI00S0vZ1D3O',
+
+  URL_WHATSAPP_CONTAB:
+    `https://api.whatsapp.com/send?phone=${PHONE_WHATSAPP}&text=` +
+    'Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20' +
+    'contabilidade%20da%20SympleCont.',
+
+  URL_WHATSAPP_CONTAB_MEI: '%20Mais%20especificamente%20do%20plano%20MEI.',
+  URL_WHATSAPP_CONTAB_SERVICE: '%20Mais%20especificamente%20do%20plano%20MEI.',
+  URL_WHATSAPP_CONTAB_COMMERCE: '%20Mais%20especificamente%20do%20plano%20MEI.',
+
+  URL_WHATSAPP_NEW_BUSINESS:
+    `https://api.whatsapp.com/send?phone=${PHONE_WHATSAPP}&text=` +
+    'Ol%C3%A1%2C%20gostaria%20de%20abrir%20uma%20empresa.',
+
+  PLAN_CONTAB_MEI: 'PLAN_MEI',
+  PLAN_CONTAB_SERVICE: 'PLAN_SERVICE',
+  PLAN_CONTAB_COMMERCE: 'PLAN_COMMERCE',
 
   PLAN_TEST_BASIC_PRODUCT_ID: 'prod_I3q8dVmru5Nm8u',
   PLAN_TEST_BASIC_PRICE_ID: 'price_1HTiRsAovamKBaC1840JyApY',
