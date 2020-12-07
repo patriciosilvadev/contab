@@ -1,6 +1,6 @@
 import React from 'react'
 import MainHeader from './header'
-import Navigation from '../../header/navigation'
+import Navigation from './navigation'
 // import { useRouter } from 'next/router'
 import ButtonOut from '../../inputs/buttonOut'
 import constants from '../../../config/constants'

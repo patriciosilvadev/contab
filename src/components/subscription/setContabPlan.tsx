@@ -2,7 +2,6 @@ import React from 'react'
 import { Text } from '@chakra-ui/core'
 import BoxPrice from './boxPrice'
 import Section from '../section'
-import constants from '../../config/constants'
 
 export interface Plan {
   id: string
@@ -99,7 +98,6 @@ const SetContabPlan: React.FC<PlansProps> = props => {
         justifyContent="center"
       >
         {plansKeysList.map((planKey, index) => {
-          console.log(index)
           return (
             <BoxPrice
               key={planKey}

@@ -28,11 +28,7 @@ const CardInfo: React.FC<CardInfoProps> = props => {
       transition="all 0.3s"
       cursor="pointer"
       _hover={
-        !hideBorders
-          ? {
-              border: `1px solid ${theme.colors.green[300]}`
-            }
-          : {}
+        !hideBorders ? { border: `1px solid ${theme.colors.green[300]}` } : {}
       }
       {...rest}
     >
