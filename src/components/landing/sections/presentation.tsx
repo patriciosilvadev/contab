@@ -36,6 +36,8 @@ const Presentantion: React.FC = () => {
             <Backspace count={7} delay={2000} />
             <Text as="span">ECONÔMICA</Text>
             <Backspace count={10} delay={2000} />
+            <Text as="span">DIGITAL</Text>
+            <Backspace count={8} delay={2000} />
           </Typing>
         </PseudoBox>
         <Flex direction="column" marginY="50px">
