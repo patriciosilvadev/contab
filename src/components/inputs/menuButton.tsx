@@ -64,7 +64,6 @@ const CustomMenuButton: React.FC<CustomMenuButton> = props => {
       <Menu>
         <MenuButton
           as={Button}
-          rightIcon="chevron-down"
           height="50px"
           borderRadius="sm"
           {...rest}

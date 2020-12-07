@@ -1,36 +1,18 @@
-import React from 'react'
-import Container from '../container'
-import TextCheck from '../textCheck'
-import Link from '../../inputs/link'
-import Button from '../../inputs/button'
-import constants from '../../../config/constants'
-import { BiRightArrowAlt } from 'react-icons/bi'
-import EconomyImage from '../../../assets/economy.png'
 import {
-  Flex,
   Text,
-  Image,
   Heading,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
-  Tabs,
-  PseudoBox,
-  Avatar
+  Tabs
 } from '@chakra-ui/core'
+import React from 'react'
 import Steps from '../../steps'
+import Container from '../container'
 import LinksToAquire from '../linksToAquire'
 
 const StepsToAquire: React.FC = () => {
-  const redirectContab = () => {
-    window.open(constants.URL_WHATSAPP_CONTAB)
-  }
-
-  const redirectNewBusiness = () => {
-    window.open(constants.URL_WHATSAPP_NEW_BUSINESS)
-  }
-
   return (
     <Container>
       <Tabs
