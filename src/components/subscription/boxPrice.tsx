@@ -63,7 +63,6 @@ const BoxPrice: React.FC<BoxPriceProps> = props => {
     <Flex
       align="center"
       direction="column"
-      minHeight={{ base: 'auto', md: '700px', xl: '600px' }}
       marginTop={marginTop}
       transform={transform}
       borderWidth={borderWith}
@@ -76,6 +75,7 @@ const BoxPrice: React.FC<BoxPriceProps> = props => {
       width={{ base: '100%', md: '33.33%' }}
       borderTopLeftRadius={!middle ? borderFirst : ''}
       borderTopRightRadius={!middle ? borderLast : ''}
+      minHeight={{ base: 'auto', md: '700px', xl: '600px' }}
       {...style}
     >
       {middle && (

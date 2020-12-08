@@ -31,6 +31,7 @@ const StepsToAquire: React.FC = () => {
           width={{ base: 'auto', md: 750 }}
         >
           <Tab
+            height="60px"
             _focus={{ outline: 'none' }}
             _selected={{ color: 'white', bg: 'green.100' }}
           >
