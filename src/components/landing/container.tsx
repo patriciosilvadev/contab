@@ -6,7 +6,7 @@ const Container: React.FC<FlexProps> = ({ children, ...rest }) => {
     <Flex
       minHeight="90vh"
       paddingY="50px"
-      paddingX="15%"
+      paddingX={{ base: '40px', md: '15%' }}
       direction="column"
       alignItems="center"
       justifyContent="center"

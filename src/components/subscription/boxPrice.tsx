@@ -52,36 +52,45 @@ const BoxPrice: React.FC<BoxPriceProps> = props => {
     boxShadow = '-8px 9px 18px -2px rgba(0,72,20,.15)'
   }
 
+  const borderWith = middle ? '1px' : '0'
+  const borderColor = middle ? 'green.600' : ''
+  const transform = middle ? 'scale(1.03)' : ''
+  const marginTop = { base: middle ? '80px' : '40px', md: 0 }
+  const borderFirst = { base: '20px', md: first ? '20px' : 0 }
+  const borderLast = { base: '20px', md: last ? '20px' : 0 }
+
   return (
     <Flex
-      borderTopLeftRadius={first ? '20px' : ''}
-      borderBottomLeftRadius={first ? '20px' : ''}
-      borderTopRightRadius={last ? '20px' : ''}
-      borderBottomRightRadius={last ? '20px' : ''}
-      borderWidth={middle ? '1px' : '0'}
-      borderColor={middle ? 'green.600' : ''}
-      transform={middle ? 'scale(1.03)' : ''}
-      boxShadow={boxShadow}
-      direction="column"
       align="center"
-      width="33.33%"
-      padding="30px"
+      direction="column"
+      minHeight={{ base: 'auto', md: '700px', xl: '600px' }}
+      marginTop={marginTop}
+      transform={transform}
+      borderWidth={borderWith}
+      borderColor={borderColor}
       backgroundColor="gray.100"
+      boxShadow={{ md: boxShadow }}
+      borderBottomLeftRadius={borderFirst}
+      borderBottomRightRadius={borderLast}
+      padding={{ base: '20px', lg: '30px' }}
+      width={{ base: '100%', md: '33.33%' }}
+      borderTopLeftRadius={!middle ? borderFirst : ''}
+      borderTopRightRadius={!middle ? borderLast : ''}
       {...style}
     >
       {middle && (
         <Text
-          width="100%"
-          position="absolute"
-          top="-39px"
           left="0"
-          borderTopLeftRadius="20px"
-          borderTopRightRadius="20px"
+          top="-39px"
+          width="100%"
           padding="7px"
-          backgroundColor="green.600"
           color="white"
           textAlign="center"
+          position="absolute"
           textTransform="uppercase"
+          borderTopLeftRadius="20px"
+          borderTopRightRadius="20px"
+          backgroundColor="green.600"
         >
           Mais popular
         </Text>
@@ -89,8 +98,9 @@ const BoxPrice: React.FC<BoxPriceProps> = props => {
 
       <Text
         fontSize={24}
-        fontWeight="medium"
         color="green.100"
+        textAlign="center"
+        fontWeight="medium"
         textTransform="uppercase"
       >
         {props.title}
@@ -158,10 +168,10 @@ const BoxPrice: React.FC<BoxPriceProps> = props => {
 
         {props.obs && (
           <Text
-            alignSelf="start"
-            marginTop="20px"
             fontSize={14}
+            marginTop="20px"
             color="gray.600"
+            alignSelf="start"
           >
             {props.obs}
           </Text>

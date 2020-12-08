@@ -20,9 +20,11 @@ const Content: React.FC<ContentProps> = props => {
 
       <Flex
         as="main"
+        width="100%"
+        overflow="hidden"
         direction="column"
-        mt={{ base: '40px', md: '70px' }}
         minH="calc(100vh - 224px)"
+        mt={{ base: '40px', md: '70px' }}
         {...props.style}
       >
         {props.children}

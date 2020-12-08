@@ -22,7 +22,13 @@ const Header: React.FC = () => {
     <MainHeader>
       <Navigation menu={menuItems} />
       {/* <ButtonOut onClick={() => router.push('/login')}>Entrar</ButtonOut> */}
-      <ButtonOut width="200px" onClick={redirect}>
+      <ButtonOut
+        marginLeft="auto"
+        onClick={redirect}
+        display={{ base: 'none', md: 'flex' }}
+        fontSize={{ base: 14, xl: 16 }}
+        width={{ base: '120px', xl: '200px' }}
+      >
         Trocar Contador
       </ButtonOut>
     </MainHeader>

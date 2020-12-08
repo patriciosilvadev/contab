@@ -6,7 +6,7 @@ const MotionFlex = motion.custom(Flex)
 
 export const SiteMenu = props => (
   <Stack
-    ml="50px"
+    ml="30px"
     as="ul"
     spacing={0}
     listStyleType="none"
@@ -25,7 +25,7 @@ const SiteMenuItem = ({ link, sections, ...props }) => {
     <PseudoBox
       as="li"
       color="gray.600"
-      fontSize={{ base: 'sm', lg: 'md' }}
+      fontSize="md"
       position="relative"
       onMouseOver={() => setShowOptions(true)}
       onMouseLeave={() => setShowOptions(false)}
@@ -113,7 +113,6 @@ const SiteMenuItem = ({ link, sections, ...props }) => {
 const Navigation = ({ menu, ...props }) => (
   <Box
     as="nav"
-    width="100%"
     height="100%"
     display={{ base: 'none', lg: 'block' }}
     {...props}

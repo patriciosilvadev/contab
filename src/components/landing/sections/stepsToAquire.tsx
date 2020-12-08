@@ -1,11 +1,12 @@
 import {
-  Text,
-  Heading,
   Tab,
+  Text,
+  Flex,
+  Tabs,
+  Heading,
   TabList,
   TabPanel,
-  TabPanels,
-  Tabs
+  TabPanels
 } from '@chakra-ui/core'
 import React from 'react'
 import Steps from '../../steps'
@@ -17,16 +18,17 @@ const StepsToAquire: React.FC = () => {
     <Container id="steps">
       <Tabs
         isFitted
-        variant="soft-rounded"
+        width="100%"
         display="flex"
+        variant="soft-rounded"
         flexDirection="column"
         alignItems="center"
       >
         <TabList
-          width={[750]}
-          borderRadius="20px"
+          borderRadius="100px"
           textTransform="uppercase"
           backgroundColor="gray.100"
+          width={{ base: 'auto', md: 750 }}
         >
           <Tab
             _focus={{ outline: 'none' }}
@@ -35,6 +37,7 @@ const StepsToAquire: React.FC = () => {
             Trocar de Contador
           </Tab>
           <Tab
+            height="60px"
             _focus={{ outline: 'none' }}
             _selected={{ color: 'white', bg: 'green.100' }}
           >
@@ -42,10 +45,10 @@ const StepsToAquire: React.FC = () => {
           </Tab>
         </TabList>
 
-        <TabPanels>
+        <TabPanels width="100%">
           <TabPanel
             display="flex"
-            padding="40px"
+            paddingY="40px"
             alignItems="center"
             flexDirection="column"
           >
@@ -72,7 +75,7 @@ const StepsToAquire: React.FC = () => {
 
           <TabPanel
             display="flex"
-            padding="40px"
+            paddingY="40px"
             alignItems="center"
             flexDirection="column"
           >

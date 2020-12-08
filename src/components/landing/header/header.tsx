@@ -1,47 +1,10 @@
-import { Box, Flex, Image, Link } from '@chakra-ui/core'
 import React, { useEffect, useState } from 'react'
-
 import logoImg from '../../../assets/logo-name.png'
+import { Box, Flex, Image, Link } from '@chakra-ui/core'
 
-const SiteHeader = ({ scrolled, ...rest }) => (
-  <Box
-    as="header"
-    transition="all ease .25s"
-    width="100%"
-    pos="fixed"
-    top="0"
-    left="0"
-    bg="white"
-    zIndex={90}
-    borderBottomWidth={1}
-    borderBottomColor={scrolled ? 'gray.300' : 'white'}
-    {...rest}
-  />
-)
-
-const SiteHeaderInner = props => (
-  <Flex
-    align="center"
-    width={{ base: 'auto', sm: '70%' }}
-    mx="auto"
-    height={{ sm: '70px' }}
-    maxW="1550px"
-    {...props}
-  />
-)
-
-const SiteLogo = ({ ...props }) => {
-  return (
-    <Box display="block" flexShrink={0} {...props}>
-      <Link href="/">
-        <Image src={logoImg} width="120px" />
-      </Link>
-    </Box>
-  )
-}
-
-const Header: React.FC = ({ children, ...props }) => {
+const Header: React.FC = ({ children, ...rest }) => {
   const [scrolled, setScrolled] = useState<boolean>(false)
+
   useEffect(() => {
     window.addEventListener('scroll', () => {
       setScrolled(window.scrollY > 0)
@@ -49,12 +12,33 @@ const Header: React.FC = ({ children, ...props }) => {
   }, [])
 
   return (
-    <SiteHeader scrolled={scrolled} {...props}>
-      <SiteHeaderInner>
-        <SiteLogo />
+    <Box
+      top="0"
+      left="0"
+      bg="white"
+      pos="fixed"
+      as="header"
+      zIndex={90}
+      width="100%"
+      borderBottomWidth={1}
+      transition="all ease .25s"
+      borderBottomColor={scrolled ? 'gray.300' : 'white'}
+      {...rest}
+    >
+      <Flex
+        maxW="1550px"
+        paddingX="15%"
+        alignItems="center"
+        justifyContent="center"
+        paddingY={{ base: '20px', lg: '0px' }}
+        height={{ base: 'auto', lg: '70px' }}
+      >
+        <Link width="120px" href="/">
+          <Image src={logoImg} width="120px" />
+        </Link>
         {children}
-      </SiteHeaderInner>
-    </SiteHeader>
+      </Flex>
+    </Box>
   )
 }
 

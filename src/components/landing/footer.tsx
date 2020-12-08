@@ -59,7 +59,7 @@ const Footer: React.FC = () => {
           <Image src={LogoImage} size={50} marginRight="20px" />
           <Text color="gray.500">© SympleCont - 2020</Text>
         </Flex>
-        <Flex marginTop="20px">
+        <Flex marginTop="20px" direction={{ bae: 'column', md: 'row' }}>
           <Flex flex={1}>
             <SocialLink
               color="purple.400"
@@ -80,7 +80,7 @@ const Footer: React.FC = () => {
               <AiOutlineWhatsApp />
             </SocialLink>
           </Flex>
-          <Flex flex={1} direction="column">
+          <Flex flex={1} direction="column" marginTop={{ base: '20px', md: 0 }}>
             <Link href="mailto:cliente@symplecont.com">
               cliente@symplecont.com
             </Link>

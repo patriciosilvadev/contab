@@ -34,7 +34,7 @@ export const plans: PlanMap = {
       'MEI, como a declaração anual. Você não se preocupa com nada e estará ' +
       'com seu MEI sempre regularizado.',
     oldPrice: '129,90',
-    price: '99',
+    price: '69',
     priceDecimal: '90',
     details: { employees: 1 },
     obs: 'Faturamento de até R$ 81 mil por ano.'
@@ -83,9 +83,9 @@ const SetContabPlan: React.FC<PlansProps> = props => {
       <Section height="150px" justifyContent="center">
         <Text
           fontSize={26}
-          fontWeight="bold"
           textAlign="center"
           color={textColor || 'green.600'}
+          fontWeight={{ base: 100, md: 'bold' }}
         >
           Adquira já o seu plano e mantenha sua contabilidade em dias de forma
           mais symples!
@@ -93,9 +93,10 @@ const SetContabPlan: React.FC<PlansProps> = props => {
       </Section>
 
       <Section
-        backgroundColor="transparent"
         alignItems="center"
         justifyContent="center"
+        backgroundColor="transparent"
+        direction={{ base: 'column', md: 'row' }}
       >
         {plansKeysList.map((planKey, index) => {
           return (

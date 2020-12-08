@@ -8,23 +8,30 @@ import { Flex, Text, Image, Heading } from '@chakra-ui/core'
 
 const HowWorks: React.FC = () => {
   return (
-    <Container id="howworks" position="relative" backgroundColor="gray.100">
+    <Container
+      id="howworks"
+      overflow="hidden"
+      position="relative"
+      backgroundColor="gray.100"
+    >
       <Image
-        src={LogoGreenSb}
         size={300}
-        position="absolute"
         bottom="50px"
         right="-150px"
+        src={LogoGreenSb}
+        position="absolute"
+        display={{ base: 'none', md: 'block' }}
       />
       <Image
-        src={LogoGreenSb}
         size={150}
-        position="absolute"
         top="50px"
         left="-75px"
+        src={LogoGreenSb}
+        position="absolute"
+        display={{ base: 'none', md: 'block' }}
       />
 
-      <Heading color="gray.600">
+      <Heading color="gray.600" textAlign="center">
         Como funciona sua contabilidade{' '}
         <Text as="b" color="green.100">
           SYMPLES
@@ -38,18 +45,22 @@ const HowWorks: React.FC = () => {
       </Text>
 
       <Flex
-        width={850}
-        padding="40px"
         marginTop="50px"
         borderRadius="20px"
         backgroundColor="white"
+        width={{ base: '95%', md: 850 }}
+        padding={{ base: '20px', md: '40px' }}
+        direction={{ base: 'column', md: 'row' }}
       >
         <Flex
           flex={1}
           direction="column"
           alignItems="center"
-          borderRightWidth={1}
-          borderRightColor="gray.100"
+          borderColor="gray.100"
+          borderRightWidth={{ base: 0, md: 1 }}
+          borderBottomWidth={{ base: 1, md: 0 }}
+          marginBottom={{ base: '20px', md: '0' }}
+          paddingBottom={{ base: '20px', md: '0' }}
         >
           <Text fontSize={20} textTransform="uppercase">
             O que{' '}
@@ -61,9 +72,9 @@ const HowWorks: React.FC = () => {
 
           <Flex
             marginY="20px"
-            paddingX="30px"
             direction="column"
             alignItems="flex-start"
+            paddingX={{ base: 0, md: '30px' }}
           >
             <TextCheck marginBottom="20px">
               Emitir as notas fiscais e importar seu extrato mensal na nossa
@@ -108,9 +119,9 @@ const HowWorks: React.FC = () => {
 
           <Flex
             marginY="20px"
-            paddingX="30px"
             direction="column"
             alignItems="flex-start"
+            paddingX={{ base: 0, md: '30px' }}
           >
             <TextCheck marginBottom="20px">
               Calculamos as guias de impostos, folha de pagamento e pró-labore.

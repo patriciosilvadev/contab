@@ -20,6 +20,7 @@ const Steps: React.FC<StepsProps> = ({ steps }) => {
           width="100%"
           height="24px"
           display="flex"
+          minWidth="200px"
           marginTop="24px"
           alignItems="center"
         >
@@ -59,7 +60,7 @@ const Steps: React.FC<StepsProps> = ({ steps }) => {
   }
 
   return (
-    <Flex width="100%">
+    <Flex width="100%" overflow="scroll">
       {steps.map((step, index) => {
         return (
           <Step

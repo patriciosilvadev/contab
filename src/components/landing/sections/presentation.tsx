@@ -19,8 +19,8 @@ const Presentantion: React.FC = () => {
 
   return (
     <Container direction={['column', 'column', 'row', 'row']}>
-      <Flex direction="column" flex={1}>
-        <Text fontSize={28} fontWeight={100}>
+      <Flex flex={1} direction="column" width="100%">
+        <Text fontSize={{ base: 24, md: 28 }} fontWeight={100}>
           Contabilidade de forma mais
         </Text>
         <PseudoBox
@@ -45,22 +45,21 @@ const Presentantion: React.FC = () => {
             Tenha sua contabilidade 100% online e acesso a um serviço completo e
             digital.
           </TextCheck>
-          <TextCheck>Economia real: planos a partir de R$89/mês.</TextCheck>
+          <TextCheck>Economia real: planos a partir de R$69,90/mês.</TextCheck>
         </Flex>
-        <Flex>
+        <Flex direction={{ base: 'column', md: 'row' }}>
           <Button
-            flex={1}
             height="50px"
-            marginRight="10px"
             onClick={redirectContab}
+            marginRight={{ base: 0, md: '10px' }}
+            marginBottom={{ base: '10px', md: 0 }}
           >
             Trocar de Contador
           </Button>
           <ButtonOut
-            flex={1}
             height="50px"
-            marginLeft="10px"
             onClick={redirectNewBusiness}
+            marginLeft={{ base: 0, md: '10px' }}
           >
             Abrir Empresa
           </ButtonOut>
@@ -72,7 +71,11 @@ const Presentantion: React.FC = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Image src={HomeImage} size={500} />
+        <Image
+          src={HomeImage}
+          size={{ base: '250px', lg: '500px' }}
+          marginTop={{ base: '50px', md: 0 }}
+        />
       </Flex>
     </Container>
   )
